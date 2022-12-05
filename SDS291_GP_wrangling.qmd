@@ -36,6 +36,10 @@ This part is not fully wrangled, but I'm not sure how we want to handle it.
 
 Currently there are multiple observations for each country, which obviously doesn't work. The issue is that the values are given in the form of a number and a range. Because we plan to use it as a numeric explanatory, I was thinking we probably only want the number and not the range? Right now those values are stored in `FactValueNumeric` but are not differentiated by specific cause of death. If we just want total, that's easy to do, but if we want to have the factor value of each cause, that's gonna take a little more work. Let me know what you think our end goal for the data set should be (ie what variables we want with what values) and then we can start figuring out the final wrangling. 
 
+Charavee- I think we should do just total death right, because the cause of disease is not directly linked to our study? 
+
+Sorry, what values are in the `FactValueNumeric` variable right now? The probability of death for each cause, sex etc.? 
+
 ## Doctor Data
 
 ```{r}
