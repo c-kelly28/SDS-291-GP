@@ -40,6 +40,8 @@ Charavee- I think we should do just total death right, because the cause of dise
 
 Sorry, what values are in the `FactValueNumeric` variable right now? The probability of death for each cause, sex etc.? 
 
+
+
 ## Doctor Data
 
 ```{r}
