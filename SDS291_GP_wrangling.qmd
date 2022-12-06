@@ -156,4 +156,3 @@ ggplot (data= merged_data, mapping = aes (y = AvgMortalityRate,
   geom_point()+
   geom_smooth (method = lm, se = FALSE, formula = y~x)
 ```
-
