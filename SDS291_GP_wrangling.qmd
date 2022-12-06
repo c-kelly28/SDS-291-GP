@@ -6,6 +6,7 @@ format: html
 
 ```{r}
 library(tidyverse)
+library (janitor)
 ```
 
 ```{r}
@@ -119,6 +120,40 @@ merged_data <- merged_data |>
   select(ParentLocation:DoctorRate, 
          `PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)`, 
          IncomeGroup, 
-         GNI_per_capita)
+         GNI_per_capita) %>% 
+  mutate(type = recode(IncomeGroup,
+                    "Upper middle income" ="Middle Income",
+                    "Lower middle income" ="Middle Income"))
+```
+
+## EDA
+
+```{r}
+ggplot (data= merged_data, mapping = aes (y = AvgMortalityRate, 
+                                          x = `PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)` ))+ 
+  geom_point()+
+  geom_smooth (method = lm, se = FALSE, formula = y~x)
+```
+
+```{r}
+ggplot (data= merged_data, mapping = aes (y = AvgMortalityRate, 
+                                          x = DoctorRate))+ 
+  geom_point()+
+  geom_smooth (method = lm, se = FALSE, formula = y~x)
+```
+```{r}
+ggplot (data= merged_data, mapping = aes (y = AvgMortalityRate, 
+                                          x = `PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)`,
+                                          color = IncomeGroup))+ 
+  geom_point()+
+  geom_smooth (method = lm, se = FALSE, formula = y~x)
+```
+
+```{r}
+ggplot (data= merged_data, mapping = aes (y = AvgMortalityRate, 
+                                          x = DoctorRate,
+                                          color = IncomeGroup))+ 
+  geom_point()+
+  geom_smooth (method = lm, se = FALSE, formula = y~x)
 ```
 
