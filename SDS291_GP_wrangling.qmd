@@ -14,35 +14,32 @@ doctor_data <- read_csv("medical_doctor_data.csv")
 mortality_data <- read_csv("mortality_data.csv")
 
 pollution_data <- read_csv("PM25-air-pollution.csv")
+
+income_data <- read_csv("country_incomelevel.csv", name_repair = make.names)
 ```
 
 
-## Mortality Data
+## Mortality Data (2019)
 
 ```{r}
 mortality_data_edit <- mortality_data |> 
   filter(Period == 2019, 
          Dim1ValueCode == "BTSX", 
-         IndicatorCode == "SDGAIRBOD") |>
-  pivot_wider(names_from = "Dim2", 
-              values_from = "Value", 
-              names_repair = make.names)
+         IndicatorCode == "SDGAIRBOD",
+         Dim2 == "Total") |>
+  select(ParentLocationCode, 
+         ParentLocation, 
+         SpatialDimValueCode, 
+         Location,
+         FactValueNumeric,
+         FactValueNumericHigh,
+         FactValueNumericLow,
+         Value)
 
 ```
 
-*Note to group* 
 
-This part is not fully wrangled, but I'm not sure how we want to handle it. 
-
-Currently there are multiple observations for each country, which obviously doesn't work. The issue is that the values are given in the form of a number and a range. Because we plan to use it as a numeric explanatory, I was thinking we probably only want the number and not the range? Right now those values are stored in `FactValueNumeric` but are not differentiated by specific cause of death. If we just want total, that's easy to do, but if we want to have the factor value of each cause, that's gonna take a little more work. Let me know what you think our end goal for the data set should be (ie what variables we want with what values) and then we can start figuring out the final wrangling. 
-
-Charavee- I think we should do just total death right, because the cause of disease is not directly linked to our study? 
-
-Sorry, what values are in the `FactValueNumeric` variable right now? The probability of death for each cause, sex etc.? 
-
-
-
-## Doctor Data
+## Doctor Data (2019)
 
 ```{r}
 doctor_data_edit <- doctor_data |> 
@@ -50,8 +47,78 @@ doctor_data_edit <- doctor_data |>
   select(ParentLocationCode, 
          ParentLocation, 
          SpatialDimValueCode, 
-         Location, 
-         Period, 
+         Location,
          FactValueNumeric, 
          Value)
 ```
+
+## Pollution data (2017)
+```{r}
+pollution_data_edit <- pollution_data |>
+  filter(Year == 2017)
+```
+
+## Income data (2019)
+```{r}
+income_data_edit <- income_data |>
+  rename(IncomeGroup = Income.group, LendingCategory = Lending.category, GNI_per_capita = X2019) |>
+  select(Country:Region, GNI_per_capita) |>
+  mutate(GNI_per_capita = na_if(GNI_per_capita, "null"))
+```
+
+
+```{r}
+WBcountry <- read_csv("WITSCountryProfile-Country_Indicator_ProductMetada-en.csv", name_repair = make.names)
+```
+
+```{r}
+WBcountry_edit <- WBcountry |>
+  select(Country.Name, Country.ISO3)
+```
+
+```{r}
+income_data_edit <- income_data_edit |>
+  inner_join(WBcountry_edit, by = c("Country" = "Country.Name"))
+```
+
+## Joining data
+
+```{r}
+merged_data <- mortality_data_edit |> 
+  inner_join(doctor_data_edit, by = c("SpatialDimValueCode" = "SpatialDimValueCode")) |> 
+  rename(ParentLocation = ParentLocation.x, 
+         ParentLocationCode = ParentLocationCode.x,
+         Location = Location.x,
+         AvgMortalityRate = FactValueNumeric.x,
+         LowMortalityRate = FactValueNumericLow,
+         HighMoralityRate = FactValueNumericHigh,
+         MortalityRate = Value.x,
+         DoctorRate = Value.y) |>
+  select(ParentLocation,
+         ParentLocationCode,
+         SpatialDimValueCode,
+         Location,
+         AvgMortalityRate,
+         LowMortalityRate,
+         HighMoralityRate,
+         MortalityRate,
+         DoctorRate)
+
+merged_data <- merged_data |>
+  inner_join(pollution_data_edit, by = c("SpatialDimValueCode" = "Code"))
+
+merged_data <- merged_data |>
+  inner_join(income_data_edit, by = c("SpatialDimValueCode" = "Country.ISO3"))
+```
+
+
+## Final 
+
+```{r}
+merged_data <- merged_data |>
+  select(ParentLocation:DoctorRate, 
+         `PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)`, 
+         IncomeGroup, 
+         GNI_per_capita)
+```
+
