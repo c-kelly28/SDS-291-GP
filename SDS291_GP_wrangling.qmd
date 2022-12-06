@@ -121,4 +121,3 @@ merged_data <- merged_data |>
          IncomeGroup, 
          GNI_per_capita)
 ```
-
