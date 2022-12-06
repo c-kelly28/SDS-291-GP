@@ -120,10 +120,9 @@ merged_data <- merged_data |>
   select(ParentLocation:DoctorRate, 
          `PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)`, 
          IncomeGroup, 
-         GNI_per_capita) %>% 
-  mutate(type = recode(IncomeGroup,
-                    "Upper middle income" ="Middle Income",
-                    "Lower middle income" ="Middle Income"))
+         GNI_per_capita) 
+  
+  
 ```
 
 ## EDA
