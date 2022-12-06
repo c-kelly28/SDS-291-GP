@@ -141,6 +141,7 @@ ggplot (data= merged_data, mapping = aes (y = AvgMortalityRate,
   geom_point()+
   geom_smooth (method = lm, se = FALSE, formula = y~x)
 ```
+
 ```{r}
 ggplot (data= merged_data, mapping = aes (y = AvgMortalityRate, 
                                           x = `PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)`,
