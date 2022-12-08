@@ -4,10 +4,91 @@ format: html
 ---
 
 ```{r}
-enviormental_mortality_data <- read_csv("enviormental_mortality_data.csv")
+enviormental_mortality_data <- read_csv("enviormental_mortality_data.csv", name_repair = make.names)
 ```
 
 ```{r}
 library(tidyverse)
 ```
 
+
+```{r}
+enviormental_mortality_data <- enviormental_mortality_data |>
+ rename(PollutionExposureLevelAnnual = PM2.5.air.pollution..mean.annual.exposure..micrograms.per.cubic.meter.)
+```
+
+
+# Simple models 
+
+```{r}
+mortality_pollution <- lm(AvgMortalityRate ~ PollutionExposureLevelAnnual, data = enviormental_mortality_data)
+
+summary(mortality_pollution)
+```
+
+```{r}
+mortality_doctor <- lm(AvgMortalityRate ~ DoctorRate, data = enviormental_mortality_data)
+
+summary(mortality_doctor)
+```
+
+# Additive
+
+```{r}
+mortality_doctor_pollution_additive <- lm(AvgMortalityRate ~ DoctorRate + PollutionExposureLevelAnnual, data = enviormental_mortality_data)
+
+summary(mortality_doctor_pollution_additive)
+```
+
+```{r}
+mortality_income_pollution_additive <- lm(AvgMortalityRate ~ IncomeGroup + PollutionExposureLevelAnnual, data = enviormental_mortality_data)
+
+summary(mortality_income_pollution_additive)
+```
+
+# Interaction 
+```{r}
+mortality_doctor_pollution_interaction <- lm(AvgMortalityRate ~ DoctorRate * PollutionExposureLevelAnnual, data = enviormental_mortality_data)
+
+summary(mortality_doctor_pollution_interaction)
+```
+
+```{r}
+mortality_income_pollution_interaction <- lm(AvgMortalityRate ~ IncomeGroup * PollutionExposureLevelAnnual, data = enviormental_mortality_data)
+
+summary(mortality_income_pollution_interaction)
+```
+
+```{r}
+anova(mortality_doctor_pollution_additive, mortality_doctor_pollution_interaction)
+```
+
+# Various visualizations
+```{r}
+enviormental_mortality_data |>
+  ggplot(aes(x = DoctorRate, y = AvgMortalityRate, color = IncomeGroup)) +
+  geom_point()+
+  geom_smooth(method = lm, formula = y~x, se=FALSE)
+```
+
+```{r}
+enviormental_mortality_data |>
+  ggplot(aes(x = PollutionExposureLevelAnnual, y = AvgMortalityRate, color = IncomeGroup)) +
+  geom_point()+
+  geom_smooth(method = lm, formula = y~x, se=FALSE)
+```
+
+```{r}
+enviormental_mortality_data |>
+  ggplot(aes(x = IncomeGroup, y = DoctorRate)) +
+  geom_point() +
+  geom_jitter()
+```
+
+
+```{r}
+enviormental_mortality_data |>
+  ggplot(aes(x = IncomeGroup, y = AvgMortalityRate)) +
+  geom_point() +
+  geom_jitter()
+```
