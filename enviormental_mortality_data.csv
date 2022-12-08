@@ -1,0 +1,82 @@
+ParentLocation,ParentLocationCode,SpatialDimValueCode,Location,AvgMortalityRate,LowMortalityRate,HighMoralityRate,MortalityRate,DoctorRate,"PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",IncomeGroup,GNI_per_capita
+Eastern Mediterranean,EMR,AFG,Afghanistan,100.8,84.41,117.6,100.8 [84.41 – 117.6],2.13,56.9108085632324,Low income,530
+South-East Asia,SEAR,BGD,Bangladesh,100.9,84.13,119,100.9 [84.13 – 119],6.37,60.8457832336426,Lower middle income,1940
+Africa,AFR,BEN,Benin,101.8,89.52,114.2,101.8 [89.52 – 114.2],0.65,38.9999580383301,Lower middle income,1250
+Africa,AFR,MOZ,Mozambique,102.5,86.82,117.8,102.5 [86.82 – 117.8],0.85,21.2986946105957,Low income,490
+Europe,EUR,AZE,Azerbaijan,109.9,73.82,148.7,109.9 [73.82 – 148.7],31.68,19.9286632537842,Upper middle income,4490
+South-East Asia,SEAR,LKA,Sri Lanka,110.1,89.09,130.5,110.1 [89.09 – 130.5],11.54,11.0996170043945,Lower middle income,4010
+Europe,EUR,LVA,Latvia,110.6,75.19,144.4,110.6 [75.19 – 144.4],32.8,13.4264574050903,High income,17740
+Africa,AFR,TCD,Chad,111.7,97.75,125.6,111.7 [97.75 – 125.6],0.54,66.0292053222656,Low income,700
+Europe,EUR,LTU,Lithuania,115.1,73.92,151.9,115.1 [73.92 – 151.9],46.27,11.8532819747925,High income,19020
+Eastern Mediterranean,EMR,PAK,Pakistan,115.1,94.08,136.6,115.1 [94.08 – 136.6],11.18,58.2824172973633,Lower middle income,1410
+South-East Asia,SEAR,NPL,Nepal,119.3,95.95,144.8,119.3 [95.95 – 144.8],8.09,99.734375,Lower middle income,1230
+Western Pacific,WPR,CHN,China,120.9,90.08,153.9,120.9 [90.08 – 153.9],22.27,52.6645965576172,Upper middle income,10390
+Europe,EUR,RUS,Russian Federation,126.5,58.41,241.2,126.5 [58.41 – 241.2],41.83,16.1602230072022,Upper middle income,11250
+Africa,AFR,ERI,Eritrea,131.3,110.7,152.5,131.3 [110.7 – 152.5],0.71,48.0301971435547,Low income,NA
+South-East Asia,SEAR,MMR,Myanmar,132.9,105.9,160.1,132.9 [105.9 – 160.1],7.37,35.5574531555176,Lower middle income,1360
+Europe,EUR,BLR,Belarus,138.2,92.75,181,138.2 [92.75 – 181],45.38,18.7655792236328,Upper middle income,6370
+South-East Asia,SEAR,MDV,Maldives,16.47,10.71,23.16,16.47 [10.71 – 23.16],20.53,7.79582071304321,Upper middle income,9670
+Europe,EUR,ISL,Iceland,16.71,9.59,24.99,16.71 [9.59 – 24.99],41.42,6.48114728927612,High income,72930
+Europe,EUR,ALB,Albania,164.8,109.3,224.7,164.8 [109.3 – 224.7],16.47,18.2006015777588,Upper middle income,5220
+Europe,EUR,GEO,Georgia,175,120.5,235.6,175 [120.5 – 235.6],70.78,22.1960544586182,Upper middle income,4690
+Europe,EUR,NOR,Norway,18.09,11.29,26.3,18.09 [11.29 – 26.3],49.4,6.95651960372925,High income,81620
+Americas,AMR,CAN,Canada,18.45,11.27,25.2,18.45 [11.27 – 25.2],24.43,6.42838335037231,High income,46460
+Eastern Mediterranean,EMR,ARE,United Arab Emirates,19.16,14.94,23.43,19.16 [14.94 – 23.43],26.01,40.9175109863281,High income,43470
+Eastern Mediterranean,EMR,JOR,Jordan,19.5,14.83,24.34,19.5 [14.83 – 24.34],26.61,33.0060806274414,Upper middle income,4410
+Western Pacific,WPR,AUS,Australia,21.08,14.12,28.15,21.08 [14.12 – 28.15],38.5,8.55032444000244,High income,55100
+Europe,EUR,SWE,Sweden,22.45,13.65,31.45,22.45 [13.65 – 31.45],70.92,6.18466520309448,High income,56090
+Europe,EUR,IRL,Ireland,22.85,15.09,31.04,22.85 [15.09 – 31.04],33.52,8.2085771560669,High income,63530
+Europe,EUR,ISR,Israel,24.11,18.76,29.86,24.11 [18.76 – 29.86],35.78,21.3811016082764,High income,43070
+Western Pacific,WPR,NZL,New Zealand,25.2,16.56,33.56,25.2 [16.56 – 33.56],35.15,5.95600128173828,High income,42450
+Americas,AMR,TTO,Trinidad and Tobago,25.42,16.26,33.92,25.42 [16.26 – 33.92],44.76,24.1085681915283,High income,16580
+Americas,AMR,CHL,Chile,27.26,20.94,33.97,27.26 [20.94 – 33.97],26.61,21.0362987518311,High income,14990
+Europe,EUR,CYP,Cyprus,28.09,20.22,36.06,28.09 [20.22 – 36.06],31.44,17.2944068908691,High income,27930
+Europe,EUR,CHE,Switzerland,28.64,18.92,37.53,28.64 [18.92 – 37.53],43.42,10.3030996322632,High income,87950
+Europe,EUR,FRA,France,29.04,20.92,37.57,29.04 [20.92 – 37.57],32.74,11.8149633407593,High income,42330
+Europe,EUR,ESP,Spain,29.76,20.59,39.43,29.76 [20.59 – 39.43],44.41,9.69792747497559,High income,30360
+Americas,AMR,PAN,Panama,30.45,19.12,45.49,30.45 [19.12 – 45.49],16.32,11.4000539779663,Upper middle income,14900
+Europe,EUR,PRT,Portugal,31.8,21.37,44.13,31.8 [21.37 – 44.13],54.84,8.16075229644775,High income,23170
+Europe,EUR,GBR,United Kingdom of Great Britain and Northern Ireland,33.07,23.2,44.41,33.07 [23.2 – 44.41],29.09,10.4726905822754,High income,42130
+Americas,AMR,BRA,Brazil,33.18,22.25,46.53,33.18 [22.25 – 46.53],23.11,12.7066297531128,Upper middle income,9270
+Europe,EUR,NLD,Netherlands,33.53,23.78,44.4,33.53 [23.78 – 44.4],37.69,12.0344076156616,High income,53060
+Western Pacific,WPR,SGP,Singapore,34.17,23.06,45.78,34.17 [23.06 – 45.78],24.6,19.0782566070557,High income,58390
+Americas,AMR,COL,Colombia,34.39,22.35,47.69,34.39 [22.35 – 47.69],22.52,16.5272102355957,Upper middle income,6580
+Europe,EUR,EST,Estonia,34.74,19.5,49.47,34.74 [19.5 – 49.47],34.72,6.73212385177612,High income,23250
+Eastern Mediterranean,EMR,OMN,Oman,36.39,25.37,46.04,36.39 [25.37 – 46.04],19.3,41.115238189697294,High income,14150
+Western Pacific,WPR,KOR,Republic of Korea,37.64,30.05,45.57,37.64 [30.05 – 45.57],24.84,25.0394248962402,High income,33790
+Americas,AMR,DOM,Dominican Republic,39.17,21.76,58.23,39.17 [21.76 – 58.23],14.52,13.726321220398,Upper middle income,8100
+Americas,AMR,ARG,Argentina,42.16,27.43,59.1,42.16 [27.43 – 59.1],40.69,13.3118343353271,Upper middle income,11130
+Europe,EUR,BEL,Belgium,42.32,30.25,55.15,42.32 [30.25 – 55.15],31.5,12.8865184783936,High income,48010
+Americas,AMR,MEX,Mexico,42.8,31.85,53.4,42.8 [31.85 – 53.4],24.25,20.9211158752441,Upper middle income,9480
+Europe,EUR,DEU,Germany,44.55,30.24,57.7,44.55 [30.24 – 57.7],43.72,12.0287675857544,High income,48600
+Africa,AFR,SYC,Seychelles,46.39,32.66,62.59,46.39 [32.66 – 62.59],22.52,20.1786499023438,High income,15930
+Africa,AFR,MUS,Mauritius,47.21,29.4,75.15,47.21 [29.4 – 75.15],25.91,14.4578275680542,Upper middle income,12900
+Europe,EUR,AUT,Austria,47.89,32.69,62.09,47.89 [32.69 – 62.09],52.73,12.4779663085938,High income,51440
+Europe,EUR,TUR,Türkiye,48.88,36.12,62.52,48.88 [36.12 – 62.52],19.28,44.311527252197294,Upper middle income,9690
+Eastern Mediterranean,EMR,SAU,Saudi Arabia,50.35,38.82,61.87,50.35 [38.82 – 61.87],27.53,87.9454498291016,High income,22840
+Europe,EUR,SVN,Slovenia,52.99,38.38,66.83,52.99 [38.38 – 66.83],32.77,16.0239791870117,High income,25940
+Europe,EUR,ITA,Italy,54.07,39.19,68.96,54.07 [39.19 – 68.96],39.96,16.75071144104,High income,34860
+Eastern Mediterranean,EMR,LBN,Lebanon,54.17,38.37,69.28,54.17 [38.37 – 69.28],22.07,30.6211109161377,Upper middle income,7420
+Africa,AFR,ZAF,South Africa,54.31,41.82,68.23,54.31 [41.82 – 68.23],7.92,25.1022052764893,Upper middle income,6040
+Europe,EUR,SVK,Slovakia,57.84,42.15,72.45,57.84 [42.15 – 72.45],35.65,17.5629119873047,High income,19220
+Africa,AFR,SEN,Senegal,63.04,54.09,71.61,63.04 [54.09 – 71.61],0.88,40.6958274841309,Lower middle income,1430
+Western Pacific,WPR,MYS,Malaysia,63.91,44.81,102.8,63.91 [44.81 – 102.8],21.15,16.0358085632324,Upper middle income,11230
+Africa,AFR,RWA,Rwanda,68.32,58.51,78.92,68.32 [58.51 – 78.92],1.18,43.2102165222168,Low income,830
+Eastern Mediterranean,EMR,EGY,Egypt,69.82,52.86,86.74,69.82 [52.86 – 86.74],7.46,86.9994506835938,Lower middle income,2690
+South-East Asia,SEAR,THA,Thailand,71.4,51.66,94.15,71.4 [51.66 – 94.15],9.19,26.2567272186279,Upper middle income,7260
+South-East Asia,SEAR,IDN,Indonesia,73,52.14,97.05,73 [52.14 – 97.05],4.65,16.5026531219482,Lower middle income,4050
+South-East Asia,SEAR,BTN,Bhutan,73.79,46.73,108.5,73.79 [46.73 – 108.5],4.6,37.9265022277832,Lower middle income,3140
+Europe,EUR,GRC,Greece,75.15,56.47,94.77,75.15 [56.47 – 94.77],63.07,16.2182655334473,High income,19710
+Europe,EUR,CZE,Czechia,76.7,54.12,96.79,76.7 [54.12 – 96.79],40.6,16.0712451934814,High income,21930
+Africa,AFR,GMB,Gambia,78.98,69.69,88.32,78.98 [69.69 – 88.32],1.07,33.9826393127441,Low income,750
+Europe,EUR,KAZ,Kazakhstan,82.09,56.57,116.3,82.09 [56.57 – 116.3],39.91,13.8242883682251,Upper middle income,8820
+Africa,AFR,BFA,Burkina Faso,83.68,72.09,95.06,83.68 [72.09 – 95.06],0.94,42.9355926513672,Low income,780
+Africa,AFR,GHA,Ghana,84.88,72.11,97.49,84.88 [72.11 – 97.49],1.06,34.7135124206543,Lower middle income,2210
+Africa,AFR,CIV,Côte d’Ivoire,86.41,72.54,101,86.41 [72.54 – 101],1.62,25.886266708374,Lower middle income,2290
+Europe,EUR,HRV,Croatia,87.75,63.25,110.8,87.75 [63.25 – 110.8],34.65,17.9017715454102,High income,14990
+Africa,AFR,NER,Niger,90.2,78.97,101.8,90.2 [78.97 – 101.8],0.38,94.0538177490234,Low income,600
+Western Pacific,WPR,PNG,Papua New Guinea,94.9,76.67,115.4,94.9 [76.67 – 115.4],0.66,12.2944183349609,Lower middle income,2750
+Africa,AFR,STP,Sao Tome and Principe,95.96,84.27,107.8,95.96 [84.27 – 107.8],4.88,28.5395851135254,Lower middle income,1950
+Africa,AFR,TGO,Togo,96.39,84.46,108.5,96.39 [84.46 – 108.5],0.78,35.7313346862793,Low income,920
+Europe,EUR,MDA,Republic of Moldova,98.45,63.05,143.9,98.45 [63.05 – 143.9],25.59,16.2510318756104,Upper middle income,4580
+Europe,EUR,HUN,Hungary,99.49,69.33,126.4,99.49 [69.33 – 126.4],35.25,15.9260482788086,High income,16530

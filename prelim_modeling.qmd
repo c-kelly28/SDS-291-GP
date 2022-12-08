@@ -1,0 +1,13 @@
+---
+title: "prelim_modeling"
+format: html
+---
+
+```{r}
+enviormental_mortality_data <- read_csv("enviormental_mortality_data.csv")
+```
+
+```{r}
+library(tidyverse)
+```
+
