@@ -33,6 +33,14 @@ summary(mortality_doctor)
 ```
 - stat sig but low r^2
 
+```{r}
+enviormental_mortality_data |>
+  ggplot(aes(x = PollutionExposureLevelAnnual, y = AvgMortalityRate)) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE, formula = y~x)
+```
+
+
 # Additive
 
 ```{r}
@@ -56,6 +64,16 @@ summary(mortality_income_pollution_doctor_additive)
 ```
 - again, pollution not stat sig and mediocre R^2
 
+```{r}
+mortality_income_doctor_additive <- lm(AvgMortalityRate ~ IncomeGroup + DoctorRate, data = enviormental_mortality_data)
+
+summary(mortality_income_doctor_additive)
+```
+
+```{r}
+anova(mortality_income_doctor_additive, mortality_income_pollution_doctor_additive)
+```
+
 # Interaction 
 ```{r}
 mortality_doctor_pollution_interaction <- lm(AvgMortalityRate ~ DoctorRate * PollutionExposureLevelAnnual, data = enviormental_mortality_data)
@@ -74,7 +92,7 @@ summary(mortality_income_pollution_interaction)
 ```{r}
 anova(mortality_doctor_pollution_additive, mortality_doctor_pollution_interaction)
 ```
-- says that additional complexity of the interaction is unwarrented
+- says that additional complexity of the interaction is unwarranted
 
 ```{r}
 mortality_income_pollution_doctor_interaction <- lm(AvgMortalityRate ~ IncomeGroup * PollutionExposureLevelAnnual * DoctorRate, data = enviormental_mortality_data)
@@ -82,6 +100,16 @@ mortality_income_pollution_doctor_interaction <- lm(AvgMortalityRate ~ IncomeGro
 summary(mortality_income_pollution_doctor_interaction)
 ```
 - full interaction just for kicks, but coefficients not stat sig
+
+```{r}
+mortality_income_doctor_interaction <- lm(AvgMortalityRate ~ IncomeGroup * DoctorRate, data = enviormental_mortality_data)
+
+summary(mortality_income_doctor_interaction)
+```
+
+```{r}
+anova(mortality_income_doctor_additive, mortality_income_doctor_interaction)
+```
 
 # Various visualizations
 ```{r}
@@ -92,10 +120,14 @@ enviormental_mortality_data |>
 ```
 
 ```{r}
+library(moderndive)
+```
+
+```{r}
 enviormental_mortality_data |>
-  ggplot(aes(x = PollutionExposureLevelAnnual, y = AvgMortalityRate, color = IncomeGroup)) +
+  ggplot(aes(x = DoctorRate, y = AvgMortalityRate, color = IncomeGroup)) +
   geom_point()+
-  geom_smooth(method = lm, formula = y~x, se=FALSE)
+  geom_parallel_slopes(se = FALSE)
 ```
 
 ```{r}
@@ -106,8 +138,27 @@ enviormental_mortality_data |>
 ```
 
 ```{r}
+enviormental_mortality_data |> 
+  ggplot(aes(x = IncomeGroup, y = PollutionExposureLevelAnnual, color = IncomeGroup)) +
+  geom_jitter()
+```
+
+```{r}
 enviormental_mortality_data |>
   ggplot(aes(x = IncomeGroup, y = AvgMortalityRate)) +
   geom_point() +
   geom_jitter()
 ```
+
+
+
+
+
+```{r}
+library(performance)
+```
+
+```{r}
+plot(check_outliers(mortality_income_pollution_doctor_additive))
+```
+
