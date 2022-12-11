@@ -4,13 +4,12 @@ format: html
 ---
 
 ```{r}
-enviormental_mortality_data <- read_csv("enviormental_mortality_data.csv", name_repair = make.names)
-```
-
-```{r}
 library(tidyverse)
 ```
 
+```{r}
+enviormental_mortality_data <- read_csv("enviormental_mortality_data.csv", name_repair = make.names)
+```
 
 ```{r}
 enviormental_mortality_data <- enviormental_mortality_data |>
@@ -25,12 +24,14 @@ mortality_pollution <- lm(AvgMortalityRate ~ PollutionExposureLevelAnnual, data 
 
 summary(mortality_pollution)
 ```
+- stat sig but low r^2
 
 ```{r}
 mortality_doctor <- lm(AvgMortalityRate ~ DoctorRate, data = enviormental_mortality_data)
 
 summary(mortality_doctor)
 ```
+- stat sig but low r^2
 
 # Additive
 
@@ -39,12 +40,21 @@ mortality_doctor_pollution_additive <- lm(AvgMortalityRate ~ DoctorRate + Pollut
 
 summary(mortality_doctor_pollution_additive)
 ```
+- not all coefficents are stat sig and low R^2
 
 ```{r}
 mortality_income_pollution_additive <- lm(AvgMortalityRate ~ IncomeGroup + PollutionExposureLevelAnnual, data = enviormental_mortality_data)
 
 summary(mortality_income_pollution_additive)
 ```
+- numeric explanatory not stat sig but cat explanatory are, mediocre R^2
+
+```{r}
+mortality_income_pollution_doctor_additive <- lm(AvgMortalityRate ~ IncomeGroup + PollutionExposureLevelAnnual + DoctorRate, data = enviormental_mortality_data)
+
+summary(mortality_income_pollution_doctor_additive)
+```
+- again, pollution not stat sig and mediocre R^2
 
 # Interaction 
 ```{r}
@@ -52,16 +62,26 @@ mortality_doctor_pollution_interaction <- lm(AvgMortalityRate ~ DoctorRate * Pol
 
 summary(mortality_doctor_pollution_interaction)
 ```
+- coeffs not not stat and low R^2
 
 ```{r}
 mortality_income_pollution_interaction <- lm(AvgMortalityRate ~ IncomeGroup * PollutionExposureLevelAnnual, data = enviormental_mortality_data)
 
 summary(mortality_income_pollution_interaction)
 ```
+- coefs mainly not stat sig and mediocre R^2
 
 ```{r}
 anova(mortality_doctor_pollution_additive, mortality_doctor_pollution_interaction)
 ```
+- says that additional complexity of the interaction is unwarrented
+
+```{r}
+mortality_income_pollution_doctor_interaction <- lm(AvgMortalityRate ~ IncomeGroup * PollutionExposureLevelAnnual * DoctorRate, data = enviormental_mortality_data)
+
+summary(mortality_income_pollution_doctor_interaction)
+```
+- full interaction just for kicks, but coefficients not stat sig
 
 # Various visualizations
 ```{r}
@@ -84,7 +104,6 @@ enviormental_mortality_data |>
   geom_point() +
   geom_jitter()
 ```
-
 
 ```{r}
 enviormental_mortality_data |>
