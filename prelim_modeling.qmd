@@ -17,6 +17,36 @@ enviormental_mortality_data <- enviormental_mortality_data |>
 ```
 
 
+# Chosen model
+
+Additive: Mortality ~ income + doctor
+```{r}
+mortality_income_doctor_additive <- lm(AvgMortalityRate ~ IncomeGroup + DoctorRate, data = enviormental_mortality_data)
+
+summary(mortality_income_doctor_additive)
+```
+
+Not the chosen model: Interaction ~ income * doctor
+```{r}
+mortality_income_doctor_interaction <- lm(AvgMortalityRate ~ IncomeGroup * DoctorRate, data = enviormental_mortality_data)
+
+summary(mortality_income_doctor_interaction)
+```
+
+Anova between additive and interaction showed that added complexity of the interaction term was unwarrented. 
+```{r}
+anova(mortality_income_doctor_additive, mortality_income_doctor_interaction)
+```
+
+
+
+
+```{r}
+anova(mortality_income_doctor_additive, mortality_income_pollution_doctor_additive)
+```
+
+
+
 # Simple models 
 
 ```{r}
@@ -101,16 +131,6 @@ summary(mortality_income_pollution_doctor_interaction)
 ```
 - full interaction just for kicks, but coefficients not stat sig
 
-```{r}
-mortality_income_doctor_interaction <- lm(AvgMortalityRate ~ IncomeGroup * DoctorRate, data = enviormental_mortality_data)
-
-summary(mortality_income_doctor_interaction)
-```
-
-```{r}
-anova(mortality_income_doctor_additive, mortality_income_doctor_interaction)
-```
-
 # Various visualizations
 ```{r}
 enviormental_mortality_data |>
@@ -149,8 +169,6 @@ enviormental_mortality_data |>
   geom_point() +
   geom_jitter()
 ```
-
-
 
 
 
