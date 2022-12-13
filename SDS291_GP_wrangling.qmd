@@ -121,6 +121,9 @@ merged_data <- merged_data |>
          `PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)`, 
          IncomeGroup, 
          GNI_per_capita) 
+
+#%>% 
+  #mutate (income_group = ifelse( IncomeGroup == "Upper middle Income", "Middle income", no))
   
   
 ```
