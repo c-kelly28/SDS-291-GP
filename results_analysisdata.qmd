@@ -1,0 +1,264 @@
+---
+title: "results_analysiscode"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library (performance)
+library (moderndive)
+library (car)
+```
+
+```{r}
+env_mortality_data <- read_csv("enviormental_mortality_data.csv", name_repair = make.names)
+```
+
+```{r}
+env_mortality_data <- env_mortality_data |>
+ rename(PollutionExposure = PM2.5.air.pollution..mean.annual.exposure..micrograms.per.cubic.meter.)
+```
+
+Conclusion: Model 4 is the best, the best R^2 and nested anova test passed. Adding more variables does predict AvgMortalityRate more. Suspect the Exposure being not SS from linear to multiple regression due to multicollinearity but VIFs are safe.
+
+Questions:
+1) LINE is not satisfied. Log(Y) does help the situation more, does that mean we alter all the AvgMortalityRate to log(AvgMortalityRate)? Or do we leave it as it is?
+
+2) LINE for which other variables to check for? and what to do if each of the checks contains violations. Do facet by incomegroup?
+
+3) Some combinations are y ~ x1 + x2 * x3. Is that something we want to explore?
+
+Appendix?
+
+1) for each Income Group, what does the mortality vs. Doctor Rate look like?
+
+
+
+## 1) Mortality ~ Exposure
+
+### 1.1) regression graph
+
+```{r}
+ggplot (data = env_mortality_data, mapping = aes ( x= PollutionExposure, y= AvgMortalityRate)) +
+          geom_point ()+
+          geom_smooth (method = lm, se = FALSE, formula = y~x)
+
+```
+### 1.2) model fitting 
+```{r}
+mortality_pollution_model <- lm (AvgMortalityRate ~ PollutionExposure, data = env_mortality_data) 
+
+summary (mortality_pollution_model)
+```
+#### 1.2.1) SS - all
+
+#### 1.2.2) R^2 - bad 
+
+### 1.3) LINE assumptions
+
+#### 1.3.1) Linearity - Bad 
+
+```{r}
+linearity_check_1 <- check_model(mortality_pollution_model, check="linearity",
+                              panel=FALSE)
+
+plot(linearity_check_1, data= mortality_pollution_model)
+```
+#### 1.3.2) Variance - Good
+```{r}
+variance_check_1 <- check_model(mortality_pollution_model, check="homogeneity",
+                              panel=FALSE)
+
+plot(variance_check_1, data=mortality_pollution_model)
+```
+#### 1.3.3) Normality - skewed 
+```{r}
+normality_check_1 <- check_model(mortality_pollution_model, check="qq",
+                              panel=FALSE)
+
+plot(normality_check_1, data=mortality_pollution_model)
+```
+
+#### 1.3.4) scatterplot : x vars 
+
+```{r}
+select_data <- env_mortality_data %>% 
+  select (IncomeGroup,PollutionExposure, DoctorRate, AvgMortalityRate)
+
+pairs(select_data[,-1])
+```
+#### 1.3.5) msc 
+
+
+
+
+### 1.4) Transformation - helps
+
+```{r}
+mortality_pollution_model_log <- lm(log(AvgMortalityRate) ~ log(PollutionExposure), data = env_mortality_data)
+
+check_model(mortality_pollution_model_log, check=c("homogeneity", "qq"))
+
+```
+
+### 1.5) Anova - F stat
+
+```{r}
+anova (mortality_pollution_model)
+```
+
+
+## 2) Mort ~ Poll + Doc 
+
+### 2.1) regression graph
+
+
+### 2.2) model fitting
+
+```{r}
+mort_pol_doc_model <- lm (AvgMortalityRate ~ PollutionExposure + DoctorRate , data = env_mortality_data) 
+
+summary (mort_pol_doc_model)
+```
+#### 2.2.1) SS - not all
+
+#### 2.2.2) R^2 - same bad
+
+### 2.3) compare w/ int 
+
+```{r}
+mort_pol_doc_int <- lm (AvgMortalityRate ~ PollutionExposure * DoctorRate , data = env_mortality_data) 
+
+summary (mort_pol_doc_int)
+```
+```{r}
+anova (mort_pol_doc_model, mort_pol_doc_int)
+```
+#### 2.3.1) pll > int 
+
+### 2.4) compare 2 and 1
+
+```{r}
+anova (mortality_pollution_model, mort_pol_doc_model)
+```
+#### 2.4.1) 1 > 2
+
+## 3) Mort ~ Poll + Income
+
+### 3.1) model fitting 
+
+```{r}
+mort_pol_inc_pll <- lm (AvgMortalityRate ~ PollutionExposure + IncomeGroup , data = env_mortality_data) 
+
+summary (mort_pol_inc_pll)
+```
+#### 3.1.1) SS - all, exposure
+
+#### 3.1.2) R^2 - better
+
+### 3.2) regression graph 
+
+```{r}
+ggplot(env_mortality_data, aes(x = PollutionExposure, y = AvgMortalityRate, color = IncomeGroup)) +
+  geom_point() +
+  geom_parallel_slopes(method = "lm", se = FALSE)
+
+```
+### 3.3) compare w/ int
+
+```{r}
+mort_pol_inc_int <- lm (AvgMortalityRate ~ PollutionExposure * IncomeGroup , data = env_mortality_data) 
+
+summary (mort_pol_inc_int)
+```
+```{r}
+anova (mort_pol_inc_pll, mort_pol_inc_int)
+```
+- too many non-SS coefficients 
+
+#### 3.3.1) pll>int 
+
+### 3.4) compare 3 and 1
+
+```{r}
+anova (mortality_pollution_model, mort_pol_inc_pll)
+```
+
+#### 3.4.1) 3 > 1 YAY!
+
+## 4) Mort ~ Poll + Inc + Doc 
+
+#### 4.1) model fitting 
+
+```{r}
+mort_pol_inc_doc_pll <- lm (AvgMortalityRate ~ PollutionExposure + IncomeGroup + DoctorRate , data = env_mortality_data) 
+
+summary (mort_pol_inc_doc_pll)
+```
+#### 4.1.2) SS - all, exposure 
+
+#### 4.1.3) R^2 - better than 3
+
+### 4.2) compare w/ int
+
+```{r}
+mort_pol_inc_doc_int <- lm (AvgMortalityRate ~ PollutionExposure * IncomeGroup * DoctorRate, data = env_mortality_data) 
+
+summary (mort_pol_inc_doc_int)
+```
+
+```{r}
+anova (mort_pol_inc_doc_pll, mort_pol_inc_doc_int)
+```
+#### 4.2.1) pll > int 
+
+### 4.3) compare 4 and 3 
+
+```{r}
+anova (mort_pol_inc_pll, mort_pol_inc_doc_pll)
+```
+#### 4.3.1) 4 > 3
+
+### 4.4) Compare 4 and 1
+
+```{r}
+anova (mortality_pollution_model, mort_pol_inc_doc_pll)
+```
+#### 4.4.1) 4 > 1 
+
+```{r}
+check_model(mort_pol_inc_doc_pll, check=c("homogeneity", "qq"))
+
+model_performance(mort_pol_inc_doc_pll)
+```
+
+## 5) Multicollinearity: safe
+
+- non-nested model comparison 
+
+### 5.1) higher R^2: 4
+
+### 5.2) VIF: low for all
+
+
+```{r}
+vif (mort_pol_doc_model)
+```
+
+```{r}
+vif (mort_pol_inc_pll)
+```
+
+```{r}
+vif (mort_pol_inc_doc_pll)
+```
+
+
+
+
+
+
+
+
+
