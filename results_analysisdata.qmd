@@ -3,12 +3,14 @@ title: "results_analysiscode"
 format: html
 editor: visual
 ---
-
+## loading pkgs
 ```{r}
 library(tidyverse)
 library (performance)
 library (moderndive)
 library (car)
+library (janitor)
+library (skimr)
 ```
 
 ```{r}
@@ -80,7 +82,9 @@ normality_check_1 <- check_model(mortality_pollution_model, check="qq",
 plot(normality_check_1, data=mortality_pollution_model)
 ```
 
-#### 1.3.4) scatterplot : x vars 
+#### 1.3.4) Independence - Good
+
+#### 1.3.5) scatterplot : x vars 
 
 ```{r}
 select_data <- env_mortality_data %>% 
@@ -88,7 +92,7 @@ select_data <- env_mortality_data %>%
 
 pairs(select_data[,-1])
 ```
-#### 1.3.5) msc 
+#### 1.3.6) msc 
 
 
 
@@ -185,7 +189,7 @@ anova (mort_pol_inc_pll, mort_pol_inc_int)
 anova (mortality_pollution_model, mort_pol_inc_pll)
 ```
 
-#### 3.4.1) 3 > 1 YAY!
+#### 3.4.1) 3 > 1 
 
 ## 4) Mort ~ Poll + Inc + Doc 
 
@@ -254,6 +258,53 @@ vif (mort_pol_inc_pll)
 vif (mort_pol_inc_doc_pll)
 ```
 
+## 6) Informative Stats
+
+
+### 6.1) Income Distribution 
+
+```{r}
+inc_dist <- env_mortality_data %>%  
+  group_by (IncomeGroup) %>% 
+  summarize (count = n()) %>% 
+  mutate (percent = (count/81)*100)
+
+# Global 
+
+country_incomelevel<- read_csv("country_incomelevel.csv")%>% 
+  clean_names()
+
+inc_dist_all <- country_incomelevel %>% 
+  group_by (income_group) %>% 
+  summarize (count = n()) %>% 
+  mutate (percent = (count/217)*100)
+```
+
+### 6.2) skimmed stats
+
+```{r}
+skimed_all <- env_mortality_data %>% 
+  skim() %>% 
+  filter (skim_variable == "AvgMortalityRate" |
+          skim_variable == "DoctorRate"|
+          skim_variable == "PollutionExposure") %>% 
+  select (skim_variable, contains ("numeric"))
+```
+
+### 6.3) Poll vs. Income
+
+```{r}
+ggplot (env_mortality_data, aes (x=IncomeGroup, y = PollutionExposure))+
+  geom_boxplot()
+```
+### 6.4) Doc vs. Poll by incomegroup
+
+```{r}
+ggplot (env_mortality_data, aes (x=DoctorRate, y = PollutionExposure))+
+  geom_point()+
+  facet_wrap (~IncomeGroup)+
+  geom_smooth (method= lm, se = FALSE, formula = y~x)
+```
 
 
 
