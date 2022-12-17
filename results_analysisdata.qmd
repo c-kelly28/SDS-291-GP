@@ -11,6 +11,7 @@ library (moderndive)
 library (car)
 library (janitor)
 library (skimr)
+library (emmeans)
 ```
 
 ```{r}
@@ -199,6 +200,12 @@ anova (mortality_pollution_model, mort_pol_inc_pll)
 mort_pol_inc_doc_pll <- lm (AvgMortalityRate ~ PollutionExposure + IncomeGroup + DoctorRate , data = env_mortality_data) 
 
 summary (mort_pol_inc_doc_pll)
+
+mort_2 <- lm (AvgMortalityRate ~ IncomeGroup + DoctorRate , data = env_mortality_data) 
+
+summary (mort_2)
+
+anova (mort_2, mort_pol_inc_doc_pll)
 ```
 #### 4.1.2) SS - all, exposure 
 
@@ -303,8 +310,36 @@ ggplot (env_mortality_data, aes (x=IncomeGroup, y = PollutionExposure))+
 ggplot (env_mortality_data, aes (x=DoctorRate, y = PollutionExposure))+
   geom_point()+
   facet_wrap (~IncomeGroup)+
-  geom_smooth (method= lm, se = FALSE, formula = y~x)
+  geom_smooth (method= lm, se = FALSE, formula = y~x)+
+  theme_bw()
 ```
+
+## 7) Contrasts 
+
+### 7.1) Ref Grid 
+
+```{r}
+mort_by_inc_model <- lm (AvgMortalityRate ~ IncomeGroup + PollutionExposure, data = env_mortality_data)
+
+mort_by_inc <- emmeans(mort_pol_inc_doc_pll, specs = ~ IncomeGroup)
+mort_by_inc
+```
+
+```{r}
+contrast(mort_by_inc, method = "consec")
+```
+```{r}
+summarize(env_mortality_data, avg_pollExp = mean(PollutionExposure), std_dev = sd(PollutionExposure))
+```
+
+```{r}
+inc_poll_grid <- emmeans(mort_pol_inc_doc_pll, 
+                         specs = ~  PollutionExposure + IncomeGroup + DoctorRate, 
+                         at = list(PollutionExposure = c(26.04 - 20.75, 26.04489, 26.04 + 20.75)))
+
+inc_poll_grid
+```
+
 
 
 
