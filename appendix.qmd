@@ -1,0 +1,32 @@
+---
+title: "Appendix"
+format: html
+editor: visual
+---
+
+```{r, message = FALSE, echo = FALSE}
+library(tidyverse)
+library (performance)
+library (moderndive)
+library (car)
+library (janitor)
+library (skimr)
+library (emmeans)
+```
+
+## Appendix 
+
+### LINE assumptions 
+
+Linearity 
+
+Independance 
+
+Normality 
+
+Equivalence 
+
+```{r, message = FALSE, echo = FALSE}
+
+```
+
