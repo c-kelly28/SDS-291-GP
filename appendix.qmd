@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-```{r, message = FALSE, echo = FALSE}
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
 library(tidyverse)
 library (performance)
 library (moderndive)
@@ -12,21 +12,99 @@ library (car)
 library (janitor)
 library (skimr)
 library (emmeans)
+
+data_final <- read_csv("enviormental_mortality_data.csv", name_repair = make.names)
+
+data_final <- data_final |>
+ rename(PMExposure = PM2.5.air.pollution..mean.annual.exposure..micrograms.per.cubic.meter.)
+
+model_final <- lm (AvgMortalityRate ~ PMExposure + IncomeGroup + DoctorRate , data = data_final)
 ```
 
-## Appendix 
+## Appendix
 
-### LINE assumptions 
+### LINE assumptions
 
-Linearity 
+####Linearity Check 
 
-Independance 
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+linearity_check <- check_model(model_final, check="linearity",
+                              panel=FALSE)
 
-Normality 
+plot(linearity_check, data= model_final)
+```
 
-Equivalence 
+#### Normality Check 
 
-```{r, message = FALSE, echo = FALSE}
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+normality_check <- check_model(model_final, check="qq",
+                              panel=FALSE)
 
+plot(normality_check, data=model_final)
+```
+
+#### Variance Check 
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+variance_check <- check_model(model_final, check="homogeneity",
+                              panel=FALSE)
+
+plot(variance_check, data=model_final)
+```
+
+**Linearity** 
+
+**Independence of observations** Since our data belongs to an individual year (2017) there is very little likelihood that one observation would overlap with or influence another. Therefore, we have reason to believe that this condition is not violated.
+
+**Normality**
+
+**Homogeneity of Variance**
+
+
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+```
+
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+```
+
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+```
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+```
+
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+```
+
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+```
+
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+```
+
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+```
+
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+```
+
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+```
+
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+```
+
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
 ```
 
