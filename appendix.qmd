@@ -25,7 +25,7 @@ model_final <- lm (AvgMortalityRate ~ PMExposure + IncomeGroup + DoctorRate , da
 
 ### LINE assumptions
 
-####Linearity Check 
+#### Linearity Check
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
 linearity_check <- check_model(model_final, check="linearity",
@@ -34,7 +34,7 @@ linearity_check <- check_model(model_final, check="linearity",
 plot(linearity_check, data= model_final)
 ```
 
-#### Normality Check 
+#### Normality Check
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
 normality_check <- check_model(model_final, check="qq",
@@ -43,7 +43,7 @@ normality_check <- check_model(model_final, check="qq",
 plot(normality_check, data=model_final)
 ```
 
-#### Variance Check 
+#### Variance Check
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
 variance_check <- check_model(model_final, check="homogeneity",
@@ -52,23 +52,19 @@ variance_check <- check_model(model_final, check="homogeneity",
 plot(variance_check, data=model_final)
 ```
 
-**Linearity** 
+**Linearity**
 
-**Independence of observations** Since our data belongs to an individual year (2017) there is very little likelihood that one observation would overlap with or influence another. Therefore, we have reason to believe that this condition is not violated.
+**Independence of observations** Since our data describes individual countries at a specific point in time (i.e., no the same country over time) there is little likelihood that one observation would overlap with or influence another. Therefore, we have reason to believe that this condition is not violated.
 
 **Normality**
 
 **Homogeneity of Variance**
 
-
-
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
 ```
 
-
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
 ```
-
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
 ```
@@ -76,35 +72,26 @@ plot(variance_check, data=model_final)
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
 ```
 
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+```
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
 ```
 
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+```
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
 ```
 
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+```
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
 ```
 
-
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
 ```
 
-
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
 ```
-
-
-```{r, message = FALSE, echo = FALSE, warning = FALSE}
-```
-
-
-```{r, message = FALSE, echo = FALSE, warning = FALSE}
-```
-
-
-```{r, message = FALSE, echo = FALSE, warning = FALSE}
-```
-
