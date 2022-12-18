@@ -303,6 +303,9 @@ skimed_all <- env_mortality_data %>%
 ```{r}
 ggplot (env_mortality_data, aes (x=IncomeGroup, y = PollutionExposure))+
   geom_boxplot()
+
+ggplot (env_mortality_data, aes (x=IncomeGroup, y = DoctorRate))+
+  geom_boxplot()
 ```
 ### 6.4) Doc vs. Poll by incomegroup
 
@@ -338,6 +341,9 @@ inc_poll_grid <- emmeans(mort_pol_inc_doc_pll,
                          at = list(PollutionExposure = c(26.04 - 20.75, 26.04489, 26.04 + 20.75)))
 
 inc_poll_grid
+```
+```{r}
+contrast(inc_poll_grid, method = "pairwise", by="PollutionExposure")
 ```
 
 
