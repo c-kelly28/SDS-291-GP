@@ -91,6 +91,19 @@ contrast2_grid <- emmeans(model_final,
 contrast(contrast2_grid, method = "pairwise", by="DoctorRate")
 ```
 
+### Contrast 3: consec: Fixing number of doctors per 100,000
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+contrast(contrast1_grid, method = "consec", by="PollutionExposure")
+
+```
+
+### Contrast 4: consec: Fixing exposure to pollution
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+contrast(contrast2_grid, method = "consec", by="DoctorRate")
+
+```
 ### Testing VIF
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
@@ -127,7 +140,6 @@ anova (model_final, model_final_int)
 
 ### Informative and Exploratory Graphs 
 
-
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
 ggplot (data_final, aes (x=IncomeGroup, y = PollutionExposure))+
   geom_boxplot()+
@@ -146,6 +158,7 @@ ggplot (data_final, aes (x = DoctorRate))+
 ```
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
+
 ggplot (data_final, aes (x=DoctorRate, 
                          y = PollutionExposure, 
                          color = IncomeGroup))+
