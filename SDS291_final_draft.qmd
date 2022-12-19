@@ -61,13 +61,13 @@ Our research question is, ‘What are the effects of the number of doctors and t
   For our analysis, we chose a parallel slopes model with one outcome variable (average mortality rate attributed to air pollution) and three explanatory variables (mean annual exposure to PM 2.5 pollution and number of doctors per 100,000 and  income group) i.e. AvgMortalityRate ~ PollutionExposure + IncomeGroup + DoctorRate. Our model selection process began with the evaluation of the simplest model like the linear regression between average mortality rate and pollution exposure. This selection process then progressed with adding complexity with a new explanatory variable like income group and consequently number of doctors per 100,000 at each step. For each new model, we analyzed its regression statistics like the coefficient’s statistical significance, the compliance with the LINE conditions, and the adjusted R^2. When these observations were favorable, we conducted a nested F-test between the latest additive model (reduced model) and its interaction (full model) to check if the increased predictive accuracy in the interaction model was statistically significant to include. In this entire study, interactions were not worth it for any of the models. Finally, we conducted another nested F-test between the latest model with a new variable (full model) and the last model (reduced model) to determine whether the new variable improved the effectiveness of a model. It is important to note that we included pollution exposure in our final model to control for it so that we account for this variable’s potentially confounding nature. Through trial and error, we chose the optimal fitting model: a parallel slopes model with pollution exposure, income group and number of doctors predicting the average mortality rate of a country. 
 
 ## Results 
-  Our model (AvgMortalityRate ~ PollutionExposure + IncomeGroup + DoctorRate) performs a statistical analysis on the 81 valid observations out of 217 from the dataset. In this sample, the income groups are not evenly distributed, because it comprises 44.4% of high income countries, 27.1% of upper middle income countries, 17.2% of lower middle income countries, and only 11.1% of low income countries. According to figure ___, the median `mean annual exposure to PM 2.5 pollution` is the highest in low income countries and the lowest in high income countries relative to each level. In contrast, the median number of doctors per 10,000 is the lowest for low income countries, and highest for high income countries. Our model sought to understand the effect of these variables on the average mortality rate of a country. 
+  Our model (AvgMortalityRate ~ PollutionExposure + IncomeGroup + DoctorRate) performs a statistical analysis on the 81 valid observations out of 217 from the dataset. In this sample, the income groups are not evenly distributed, because it comprises 44.4% of high income countries, 27.1% of upper middle income countries, 17.2% of lower middle income countries, and only 11.1% of low income countries. The median mean annual exposure to PM 2.5 pollution is the highest in low income countries and the lowest in high income countries relative to each level. In contrast, the median number of doctors per 10,000 is the lowest for low income countries, and highest for high income countries. Our model sought to understand the effect of these variables on the average mortality rate of a country. 
 
   The model shows that the predicted average mortality rates of a low income country, lower middle income country, and upper middle income country are, respectively, 83.29, 79.19 and 40.37 per 100,000 population higher than that of a high income country. Furthermore, for every one microgram per cubic meter increase in mean annual exposure to PM 2.5 pollution, the predicted average mortality rate of a country of any income group (given the parallel slopes model) increases by 0.26 person per 100,000, allowing for simultaneous changes in the number of doctors per 10,000. 
 
-  To get a clearer picture of differences in the predicted average mortality rate between each income group instead of in relation to high income countries, we performed two sets of contrasts: one that fixed the number of doctors per 10,000, and another that fixed the pollution exposure (Figure ___). For the contrasts that held the number of doctors per 10,000 constant, low income countries have higher exposure to pollution than upper and lower middle income countries (p < 0.05), and lower middle income countries have more pollution exposure than upper middle income countries. However, these results were not statistically significant (p> 0.05). In the case of contrasts that fixed the pollution exposure, the number of doctors per 10,000 were greater in low income countries than upper and lower middle income countries, and in lower middle income countries compared to upper middle income countries. Again, these results were also not statistically significant (p>0.05). 
+  To get a clearer picture of differences in the predicted average mortality rate between each income group instead of in relation to high income countries, we performed a contrasts that fixed the number of doctors per 10,000. Low income countries have higher exposure to pollution than upper and lower middle income countries (p < 0.05), and lower middle income countries have more pollution exposure than upper middle income countries; however, these results were not statistically significant (p> 0.05). Since our model is a parallel slopes model, fixing the pollution exposure would yield the same results as fixing the number of doctors per 10,000 for the relationship between the average mortality rate and income group of a country. 
 
-  Based on individual t-tests for our model, the aforementioned coefficients for the two explanatory variables: income group and number of doctors per 10,000, are statistically significant (p < 0.05). However, the coefficient of the third explanatory variable: pollution exposure, became statistically insignificant when each covariate was added in our additive model. We conducted a VIF test to potentially show that the adding the two other variables could have increased the uncertainty in the pollution exposure variable to render this coefficient statistically insignificant. However, this test does not display multicollinearity, since the VIF for all three explanatory variables are less than 5 (Figure ___). 
+  Based on individual t-tests for our model, the aforementioned coefficients for the two explanatory variables: income group and number of doctors per 10,000, are statistically significant (p < 0.05). However, the coefficient of the third explanatory variable: pollution exposure, became statistically insignificant when each covariate was added in our additive model. We conducted a VIF test to potentially show that the adding the two other variables could have increased the uncertainty in the pollution exposure variable to render this coefficient statistically insignificant. However, this test does not display multicollinearity, since the VIF for all three explanatory variables are less than 5. 
 
   In our study, we are testing whether a country’s average mortality rate also depends on its income status and/or the number of doctors per 10,000 beyond the exposure to PM 2.5 pollution. The results of this model allow us to reject the null hypothesis. In other words, these two explanatory variables explain the variability in the average mortality rate of a country beyond the capacity of pollution exposure. In addition to results yielded from the t-tests mentioned above, the nested F-test between our chosen model (full model) and other (reduced) model yielded statistically significant F-statistics (p < 0.05) to permit the rejection of the null hypothesis. In other words, the inclusion of the number of doctors per 10,000 and income group improves the effectiveness of the model, and the slope of average mortality rate is dependent on these variables. Furthemore, the adjusted R^2 improves significantly in our chosen model (37.67%) compared to the simple regression between average mortality rate and pollution exposure (11.7%), or the additive multiple regression among average mortality rate, pollution exposure, and income group (30.26%). These results mean that our chosen model explains more variability in the outcome than the other models.
 
@@ -134,7 +134,7 @@ plot(variance_check, data=model_final)
 summary(model_final)
 ```
 
-### Contrast 1: Fixing number of doctors per 10,000
+### Contrast
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
 
@@ -149,23 +149,6 @@ contrast1_grid <- emmeans(model_final,
 data_3 <- contrast(contrast1_grid, method = "pairwise", by="PollutionExposure")
 
 kable(data_3, caption = "Contrasts by Pollution Exposure")
-```
-
-### Contrast 2: Fixing exposure to pollution
-
-```{r, message = FALSE, echo = FALSE, warning = FALSE}
-data_4 <- summarize(data_final, avg_pollExp = mean(DoctorRate), std_dev = sd(DoctorRate))
-
-kable(data_4, caption = "Descriptive Statistics of Doctor Rate")
-
-contrast2_grid <- emmeans(model_final, 
-                         specs = ~  PollutionExposure + IncomeGroup + DoctorRate, 
-                         at = list(DoctorRate = c(24.82 - 17.67, 24.82, 24.82 + 17.67)))
-
-data_5 <- contrast(contrast2_grid, method = "pairwise", by="DoctorRate")
-
-kable(data_5, caption = "Contrasts by Doctor Rate")
-
 ```
 
 ### Testing VIF
