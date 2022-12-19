@@ -1,6 +1,12 @@
 ---
-title: "Final Draft"
-format: html
+title: "Analysis of Healthcare and Income Status of a Country as factors of mortality rate attributed to air pollution"
+format: 
+  html: 
+    toc: true
+    toc-location: left
+    toc-title: Contents
+    toc-depth: 4
+theme: flatly
 ---
 
 
@@ -22,10 +28,10 @@ data_final <- data_final |>
 model_final <- lm (AvgMortalityRate ~ PollutionExposure + IncomeGroup + DoctorRate , data = data_final)
 ```
 
-
-# Analysis of Healthcare and Income Status of a Country as factors of mortality rate attributed to air pollution 
-
 Charavee Basnet Chettri, Claire Kelly, Abby Paharsingh 
+
+
+## Abstract 
 
 ## Introduction
 
@@ -77,20 +83,6 @@ Our research question is, ‘What are the effects of the number of doctors and t
   It is also possible to consider that the data itself is not reliable. The global nature of these measures mean that data collection processes and the resources allocated to them are not consistent across all countries. For example, lower income countries may not have the same infrastructure to collect and report on specific data such as the rate of doctors, and thus our analysis is not using accurate data. In addition, the self-report nature of some of the variables introduced more uncertainty, as countries may be compelled to put forth favoring statistics. A further limitation is that data collection from different variables does not happen on the same time schedule. To have enough data to analyze, we were required to use data from 2019, rather than the most recent year. However, the most recently available pollution exposure data was from 2017, leading us to use data from two different years. We suspect that the inconsistency in year would not cause enough disruption to change the overall patterns in our data, however, it is also possible that it would make a noticeable difference in our results.
   
   Based on the limitations of our data and the resulting model, we caution readers from generalizing from our findings. While the patterns may indeed accurately reflect the variables contributing to industrialization, it is also highly possible that with differently operationalized variables, more reliable data collection, and model transformations, that the results would be different. Instead, we frame this analysis as evidence that future study is needed to adequately comprehend the complexities of industrialization’s many factors.
-
-## References
-
-1. *Exposure to air pollution with fine particulate matter.* (n.d.). Our World in Data. Retrieved December 18, 2022, from <https://ourworldindata.org/grapher/PM25-air-pollution>
-
-2. *Global Health Estimates.* (n.d.). Retrieved December 18, 2022, from <https://www.who.int/data/global-health-estimates>
-
-3. *How does the World Bank classify countries? – World Bank Data Help Desk.* (n.d.). Retrieved December 18, 2022, from <https://datahelpdesk.worldbank.org/knowledgebase/articles/378834-how-does-the-world-bank-classify-countries>
-
-4. *Medical doctors (per 10 000 population).* (n.d.). Retrieved December 18, 2022, from <https://www.who.int/data/gho/data/indicators/indicator-details/GHO/medical-doctors-(per-10-000-population)>
-
-5. *New World Bank country classifications by income level: 2021-2022.* (n.d.). Retrieved December 18, 2022, from <https://blogs.worldbank.org/opendata/new-world-bank-country-classifications-income-level-2021-2022>
-
-6. *World Population Prospects—Population Division—United Nations.* (n.d.). Retrieved December 18, 2022, from <https://population.un.org/wpp/>
 
 # Data Appendix
 
@@ -239,3 +231,17 @@ ggplot (data_final, aes (x=DoctorRate,
         x = "Number of Doctors (per 10,000)",
         color = "Income Group")
 ```
+
+# References
+
+1. *Exposure to air pollution with fine particulate matter.* (n.d.). Our World in Data. Retrieved December 18, 2022, from <https://ourworldindata.org/grapher/PM25-air-pollution>
+
+2. *Global Health Estimates.* (n.d.). Retrieved December 18, 2022, from <https://www.who.int/data/global-health-estimates>
+
+3. *How does the World Bank classify countries? – World Bank Data Help Desk.* (n.d.). Retrieved December 18, 2022, from <https://datahelpdesk.worldbank.org/knowledgebase/articles/378834-how-does-the-world-bank-classify-countries>
+
+4. *Medical doctors (per 10 000 population).* (n.d.). Retrieved December 18, 2022, from <https://www.who.int/data/gho/data/indicators/indicator-details/GHO/medical-doctors-(per-10-000-population)>
+
+5. *New World Bank country classifications by income level: 2021-2022.* (n.d.). Retrieved December 18, 2022, from <https://blogs.worldbank.org/opendata/new-world-bank-country-classifications-income-level-2021-2022>
+
+6. *World Population Prospects—Population Division—United Nations.* (n.d.). Retrieved December 18, 2022, from <https://population.un.org/wpp/>

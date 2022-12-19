@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Final Draft</title>
+<title>Analysis of Healthcare and Income Status of a Country as factors of mortality rate attributed to air pollution</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,15 +33,51 @@ ul.task-list{list-style: none;}
 
 </head>
 
-<body class="fullcontent">
+<body>
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
+  <ul class="collapse">
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
+  <li><a href="#limitations-and-future-directions" id="toc-limitations-and-future-directions" class="nav-link" data-scroll-target="#limitations-and-future-directions">Limitations and Future Directions</a></li>
+  <li><a href="#data-appendix" id="toc-data-appendix" class="nav-link" data-scroll-target="#data-appendix">Data Appendix</a>
+  <ul class="collapse">
+  <li><a href="#line-assumptions" id="toc-line-assumptions" class="nav-link" data-scroll-target="#line-assumptions">LINE assumptions</a>
+  <ul class="collapse">
+  <li><a href="#linearity-check" id="toc-linearity-check" class="nav-link" data-scroll-target="#linearity-check">Linearity Check</a></li>
+  <li><a href="#normality-check" id="toc-normality-check" class="nav-link" data-scroll-target="#normality-check">Normality Check</a></li>
+  <li><a href="#variance-check" id="toc-variance-check" class="nav-link" data-scroll-target="#variance-check">Variance Check</a></li>
+  </ul></li>
+  <li><a href="#regression-table" id="toc-regression-table" class="nav-link" data-scroll-target="#regression-table">Regression table</a></li>
+  <li><a href="#contrast-1-fixing-number-of-doctors-per-10000" id="toc-contrast-1-fixing-number-of-doctors-per-10000" class="nav-link" data-scroll-target="#contrast-1-fixing-number-of-doctors-per-10000">Contrast 1: Fixing number of doctors per 10,000</a></li>
+  <li><a href="#contrast-2-fixing-exposure-to-pollution" id="toc-contrast-2-fixing-exposure-to-pollution" class="nav-link" data-scroll-target="#contrast-2-fixing-exposure-to-pollution">Contrast 2: Fixing exposure to pollution</a></li>
+  <li><a href="#testing-vif" id="toc-testing-vif" class="nav-link" data-scroll-target="#testing-vif">Testing VIF</a></li>
+  <li><a href="#nested-f-tests" id="toc-nested-f-tests" class="nav-link" data-scroll-target="#nested-f-tests">Nested F-tests</a></li>
+  <li><a href="#informative-and-exploratory-graphs" id="toc-informative-and-exploratory-graphs" class="nav-link" data-scroll-target="#informative-and-exploratory-graphs">Informative and Exploratory Graphs</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Final Draft</h1>
+<h1 class="title">Analysis of Healthcare and Income Status of a Country as factors of mortality rate attributed to air pollution</h1>
 </div>
 
 
@@ -58,9 +94,10 @@ ul.task-list{list-style: none;}
 <div class="cell">
 
 </div>
-<section id="analysis-of-healthcare-and-income-status-of-a-country-as-factors-of-mortality-rate-attributed-to-air-pollution" class="level1">
-<h1>Analysis of Healthcare and Income Status of a Country as factors of mortality rate attributed to air pollution</h1>
 <p>Charavee Basnet Chettri, Claire Kelly, Abby Paharsingh</p>
+<section id="abstract" class="level2">
+<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
+</section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Since the Industrial Revolution of the 18th and 19th century, our planet has been faced with the existential challenge of man-made air pollution. Although humans are painfully aware of the effects of air pollution on climate change and health, the benefits that have come from industrialization have thus far seemed too good to pass up. Industrialization brought with it the rise of the middle class, specialized jobs in industry, convenience, traveling possibilities, better healthcare and so much more. Therefore, we are faced with a dilemma, although a debate can be had about whether industrialization was necessary to procure these benefits, a more quantifiable question is whether there are areas in which the benefits of industrialization have served to counteract the harms. One such area is the physical health of humans.</p>
@@ -105,18 +142,6 @@ ul.task-list{list-style: none;}
 <p>There are also limitations with our data itself due both to how we operationalized the concept of industrialization, as well as reliability of the data collected. Industrialization is complex and difficult to reduce to readily accessible variables. Our project in part aimed to better understand the relationship between factors of industrialization. For example, we were curious about access to healthcare and its relationship with industrialization. We chose to look at the rate of doctors as we had access to this data for numerous countries, and it allowed us to adjust for population size. However, access to healthcare is not determined solely on the rate of doctors, therefore, our model does not capture the full complexity of the issue. Other metrics such as proximity to doctors, availability of specialists, and affordability of health care may capture the issue of accessibility more, and thus would provide a more reliable model. This issue of simplification of complex ideas is present in most of our variables. We used annual exposure to air pollution to determine the effects on individuals’ health, however, other forms of pollution also exist, including in water and soil. As the levels of other forms of pollution may vary from country to country, it is possible that only measuring air pollution creates an inaccurate representation of pollution’s health effects. Further research on the ideal way to operationalize complex ideas like industrialization and subsequent adjustments to the explanatory variables chosen may improve the fit of the model and potentially change the results to align with our original hypothesis.</p>
 <p>It is also possible to consider that the data itself is not reliable. The global nature of these measures mean that data collection processes and the resources allocated to them are not consistent across all countries. For example, lower income countries may not have the same infrastructure to collect and report on specific data such as the rate of doctors, and thus our analysis is not using accurate data. In addition, the self-report nature of some of the variables introduced more uncertainty, as countries may be compelled to put forth favoring statistics. A further limitation is that data collection from different variables does not happen on the same time schedule. To have enough data to analyze, we were required to use data from 2019, rather than the most recent year. However, the most recently available pollution exposure data was from 2017, leading us to use data from two different years. We suspect that the inconsistency in year would not cause enough disruption to change the overall patterns in our data, however, it is also possible that it would make a noticeable difference in our results.</p>
 <p>Based on the limitations of our data and the resulting model, we caution readers from generalizing from our findings. While the patterns may indeed accurately reflect the variables contributing to industrialization, it is also highly possible that with differently operationalized variables, more reliable data collection, and model transformations, that the results would be different. Instead, we frame this analysis as evidence that future study is needed to adequately comprehend the complexities of industrialization’s many factors.</p>
-</section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<ol type="1">
-<li><p><em>Exposure to air pollution with fine particulate matter.</em> (n.d.). Our World in Data. Retrieved December 18, 2022, from <a href="https://ourworldindata.org/grapher/PM25-air-pollution" class="uri">https://ourworldindata.org/grapher/PM25-air-pollution</a></p></li>
-<li><p><em>Global Health Estimates.</em> (n.d.). Retrieved December 18, 2022, from <a href="https://www.who.int/data/global-health-estimates" class="uri">https://www.who.int/data/global-health-estimates</a></p></li>
-<li><p><em>How does the World Bank classify countries? – World Bank Data Help Desk.</em> (n.d.). Retrieved December 18, 2022, from <a href="https://datahelpdesk.worldbank.org/knowledgebase/articles/378834-how-does-the-world-bank-classify-countries" class="uri">https://datahelpdesk.worldbank.org/knowledgebase/articles/378834-how-does-the-world-bank-classify-countries</a></p></li>
-<li><p><em>Medical doctors (per 10 000 population).</em> (n.d.). Retrieved December 18, 2022, from <a href="https://www.who.int/data/gho/data/indicators/indicator-details/GHO/medical-doctors-(per-10-000-population)" class="uri">https://www.who.int/data/gho/data/indicators/indicator-details/GHO/medical-doctors-(per-10-000-population)</a></p></li>
-<li><p><em>New World Bank country classifications by income level: 2021-2022.</em> (n.d.). Retrieved December 18, 2022, from <a href="https://blogs.worldbank.org/opendata/new-world-bank-country-classifications-income-level-2021-2022" class="uri">https://blogs.worldbank.org/opendata/new-world-bank-country-classifications-income-level-2021-2022</a></p></li>
-<li><p><em>World Population Prospects—Population Division—United Nations.</em> (n.d.). Retrieved December 18, 2022, from <a href="https://population.un.org/wpp/" class="uri">https://population.un.org/wpp/</a></p></li>
-</ol>
-</section>
 </section>
 <section id="data-appendix" class="level1">
 <h1>Data Appendix</h1>
@@ -812,6 +837,17 @@ F-statistic: 10.92 on 5 and 75 DF,  p-value: 6.483e-08</code></pre>
 </div>
 </div>
 </section>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<ol type="1">
+<li><p><em>Exposure to air pollution with fine particulate matter.</em> (n.d.). Our World in Data. Retrieved December 18, 2022, from <a href="https://ourworldindata.org/grapher/PM25-air-pollution" class="uri">https://ourworldindata.org/grapher/PM25-air-pollution</a></p></li>
+<li><p><em>Global Health Estimates.</em> (n.d.). Retrieved December 18, 2022, from <a href="https://www.who.int/data/global-health-estimates" class="uri">https://www.who.int/data/global-health-estimates</a></p></li>
+<li><p><em>How does the World Bank classify countries? – World Bank Data Help Desk.</em> (n.d.). Retrieved December 18, 2022, from <a href="https://datahelpdesk.worldbank.org/knowledgebase/articles/378834-how-does-the-world-bank-classify-countries" class="uri">https://datahelpdesk.worldbank.org/knowledgebase/articles/378834-how-does-the-world-bank-classify-countries</a></p></li>
+<li><p><em>Medical doctors (per 10 000 population).</em> (n.d.). Retrieved December 18, 2022, from <a href="https://www.who.int/data/gho/data/indicators/indicator-details/GHO/medical-doctors-(per-10-000-population)" class="uri">https://www.who.int/data/gho/data/indicators/indicator-details/GHO/medical-doctors-(per-10-000-population)</a></p></li>
+<li><p><em>New World Bank country classifications by income level: 2021-2022.</em> (n.d.). Retrieved December 18, 2022, from <a href="https://blogs.worldbank.org/opendata/new-world-bank-country-classifications-income-level-2021-2022" class="uri">https://blogs.worldbank.org/opendata/new-world-bank-country-classifications-income-level-2021-2022</a></p></li>
+<li><p><em>World Population Prospects—Population Division—United Nations.</em> (n.d.). Retrieved December 18, 2022, from <a href="https://population.un.org/wpp/" class="uri">https://population.un.org/wpp/</a></p></li>
+</ol>
 </section>
 
 </main>
