@@ -23,6 +23,8 @@ model_final <- lm (AvgMortalityRate ~ PollutionExposure + IncomeGroup + DoctorRa
 
 ## Appendix
 
+All our statistics are significant at the 0.05 level. 
+
 ### LINE assumptions
 
 #### Linearity Check 
@@ -52,13 +54,13 @@ variance_check <- check_model(model_final, check="homogeneity",
 plot(variance_check, data=model_final)
 ```
 
-**Linearity** 
+**Linearity** The relationship between the outcome and predictors are not perfectly linear but not sufficiently non-linear to fail the linearity check. 
 
-**Independence of observations** Since our data describes individual countries at a singluar point in time rather than one country over a period of time, there is very little likelihood that one observation would overlap with or influence another. Therefore, we have reason to believe that this condition is not violated.
+**Independence of observations** Since our data describes individual countries at a singular point in time rather than one country over a period of time, there is very little likelihood that one observation would overlap with or influence another. Therefore, we have reason to believe that this condition is not violated.
 
-**Normality** 
+**Normality** This condition is largely met, except for the slight right skew in the error distribution. 
 
-**Homogeneity of Variance**
+**Homogeneity of Variance** The variance of the outcome variable does not appear to drastically change as the explanatory variables change. In other words, the spread of the residuals appear relatively random and even. Therefore, this condition is not violated. 
 
 ### Regression table
 
@@ -66,7 +68,7 @@ plot(variance_check, data=model_final)
 summary (model_final)
 ```
 
-### Contrast 1: Fixing number of doctors per 100,000
+### Contrast 1: Fixing number of doctors per 10,000
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
 
@@ -91,19 +93,6 @@ contrast2_grid <- emmeans(model_final,
 contrast(contrast2_grid, method = "pairwise", by="DoctorRate")
 ```
 
-### Contrast 3: consec: Fixing number of doctors per 100,000
-
-```{r, message = FALSE, echo = FALSE, warning = FALSE}
-contrast(contrast1_grid, method = "consec", by="PollutionExposure")
-
-```
-
-### Contrast 4: consec: Fixing exposure to pollution
-
-```{r, message = FALSE, echo = FALSE, warning = FALSE}
-contrast(contrast2_grid, method = "consec", by="DoctorRate")
-
-```
 ### Testing VIF
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
@@ -144,7 +133,8 @@ anova (model_final, model_final_int)
 ggplot (data_final, aes (x=IncomeGroup, y = PollutionExposure))+
   geom_boxplot()+
   theme_bw()+
-  labs (y = "Mean Annual Exposure to PM 2.5 Pollution",
+  labs (title= "Boxplot Summary Data",
+        y = "Mean Annual Exposure to PM 2.5 Pollution",
         x = "Income Group")
 ```
 
@@ -154,7 +144,8 @@ ggplot (data_final, aes (x = DoctorRate))+
   geom_histogram(color = "white", binwidth = 3)+
   facet_wrap(~IncomeGroup)+
   theme_bw()+
-  labs (x = "Number of Doctors (per 10,000)")
+  labs (title = "Faceted Histogram: Summary Data", 
+        x = "Number of Doctors (per 10,000)")
 ```
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
