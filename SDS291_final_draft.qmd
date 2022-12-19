@@ -1,0 +1,241 @@
+---
+title: "Final Draft"
+format: html
+---
+
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+library(tidyverse)
+library (performance)
+library (moderndive)
+library (car)
+library (janitor)
+library (skimr)
+library (emmeans)
+library(knitr)
+
+data_final <- read_csv("enviormental_mortality_data.csv", name_repair = make.names)
+
+data_final <- data_final |>
+ rename(PollutionExposure = PM2.5.air.pollution..mean.annual.exposure..micrograms.per.cubic.meter.)
+
+model_final <- lm (AvgMortalityRate ~ PollutionExposure + IncomeGroup + DoctorRate , data = data_final)
+```
+
+
+# Analysis of Healthcare and Income Status of a Country as factors of mortality rate attributed to air pollution 
+
+Charavee Basnet Chettri, Claire Kelly, Abby Paharsingh 
+
+## Introduction
+
+  Since the Industrial Revolution of the 18th and 19th century, our planet has been faced with the existential challenge of man-made air pollution. Although humans are painfully aware of the effects of air pollution on climate change and health, the benefits that have come from industrialization have thus far seemed too good to pass up. Industrialization brought with it the rise of the middle class, specialized jobs in industry, convenience, traveling possibilities, better healthcare and so much more. Therefore, we are faced with a dilemma, although a debate can be had about whether industrialization was necessary to procure these benefits, a more quantifiable question is whether there are areas in which the benefits of industrialization have served to counteract the harms. One such area is the physical health of humans.
+  
+  There are many diseases attributed to living in areas with high amounts of air pollution, such as Chronic obstructive pulmonary disease (COPD), Lung cancer, Asthma, respiratory infections, to name a few. The goal of this paper is to investigate whether the increase in medical care that resulted from higher industrialization has managed to curb the deaths due to respiratory diseases caused by air pollution. 
+
+Our research question is, ‘What are the effects of the number of doctors and the income status of a country on its mortality rate attributed to air pollution?’. When looking for data, we chose to look at the income level of the country as a representation of the level of development of a country. In our currently capitalistic society, development is directly related to industrialization and more specifically the stage of industrialization a country is in. We also look at the number of doctors in a country as a representation of its level of medical care. Finally, we used data on both the rate of air pollution and the mortality rate caused by air pollution to evaluate how mortality rate changes with the level of air pollution. Our hypothesis claims that a country’s average mortality rate attributed to pollution does not depend on its income status or the number of doctors per 100,000. If we fail to reject this hypothesis, that would indicate that medical care and higher standard of living do not counteract the effects of air pollution on mortality rate. 
+
+## Methods
+### Data
+  The data for this project was pulled from a number of sources and joined by their corresponding country codes. The data for Mortality rate attributed to household and ambient air pollution (per 100 000 population) sampled the general population of all UN-recognized nation-states. This data was collected by multiple organizations: (1) WHO Global Health Estimates whose data uses multiple consolidated sources, including national vital registration data, latest estimates from WHO technical programmes, United Nations partners and inter-agency groups, as well as the Global Burden of Disease and other scientific studies.$^1$ (2) UN World Population Prospects, of which the latest assessment considers the results of 1,758 national population censuses conducted between 1950 and 2022, as well as information from vital registration systems and from 2,890 nationally representative sample surveys.$^2$
+
+  The data for Medical doctors (per 10 000 population) sampled the population of Medical doctors in UN-recognized nation-states. This sample includes generalists, specialist medical practitioners, and medical doctors not further defined, in a given national and/or subnational area.  The sample was collected with help from the NHWA data platform developed to facilitate reporting in response to World Health Assembly 69.19.$^3$ In addition to the reporting, the platform also serves as an analytical tool at the national/regional and global levels. Complementing the national reporting through the platform, additional sources such as the National Census, Labour Force Surveys and administrative national and regional sources are also employed. Additionally, the denominator data for workforce density (i.e. national population estimates) are also obtained from the United Nations Population Division's World Population Prospects database. 
+
+  Estimates of annual concentrations of PM 2.5 air pollution are generated by combining data from atmospheric chemistry transport models, satellite observations of aerosols in the atmosphere, and ground-level monitoring of particulates. Exposure to concentrations of PM2.5 in both urban and rural areas is weighted by the population of respective UN-recognized nation-states and is aggregated at the national level. The data were provided by Institute for Health Metrics and Evaluation, University of Washington, Seattle and produced by the Global Burden of Disease study.$^4$ Lastly, the data for the designation of income status to country sampled the population for all 189 World Bank member countries, plus 28 other economies with populations of more than 30,000. Estimates of GNI (Gross National Income) are obtained from economists in World Bank country units who rely primarily on official data published by the countries; the size of the population is estimated by World Bank demographers from a variety of sources, including the UN’s biennial World Population Prospects.$^5$
+
+### Variables 
+  We chose the average mortality rate attributed to air pollution, calculated per 100,000 of the population, as our outcome variable. This follows, since we are looking at how many people died, as an indication of failure to alleviate the symptoms of disease caused by air pollution. We used three explanatory variables to understand the outcome variable. Firstly, two numerical variables: the number of doctors per 10 000 population, mean annual exposure to PM2.5 air pollution, measured in micrograms per cubic meter, as well as, designation of income status to country, which is a categorical variable classifying countries as low, lower-middle, upper-middle, and high income based on what range of gross national income (GNI) per capita in U.S. dollars they fall within. These ranges are decided upon by the world bank based on numerous factors, such as global inflation, and they are adjusted on the first of July of each year.$^6$
+  
+  The individual data sets didn’t have significant amounts of data missing, however in each data set there were a few different countries without information. For example, we had mortality data for Cuba, but not Income Data. Which means that although there was some data for these countries, we couldn't use them for the comparison. Across the 183 countries that the UN had mortality data (the data set with the highest number of countries) for, only 81 of them had information across all four datasets. This constitutes about 44% of the countries. 
+
+### Analysis
+  For our analysis, we chose a parallel slopes model with one outcome variable (average mortality rate attributed to air pollution) and three explanatory variables (mean annual exposure to PM 2.5 pollution and number of doctors per 100,000 and  income group) i.e. AvgMortalityRate ~ PollutionExposure + IncomeGroup + DoctorRate. Our model selection process began with the evaluation of the simplest model like the linear regression between average mortality rate and pollution exposure. This selection process then progressed with adding complexity with a new explanatory variable like income group and consequently number of doctors per 100,000 at each step. For each new model, we analyzed its regression statistics like the coefficient’s statistical significance, the compliance with the LINE conditions, and the adjusted R^2. When these observations were favorable, we conducted a nested F-test between the latest additive model (reduced model) and its interaction (full model) to check if the increased predictive accuracy in the interaction model was statistically significant to include. In this entire study, interactions were not worth it for any of the models. Finally, we conducted another nested F-test between the latest model with a new variable (full model) and the last model (reduced model) to determine whether the new variable improved the effectiveness of a model. It is important to note that we included pollution exposure in our final model to control for it so that we account for this variable’s potentially confounding nature. Through trial and error, we chose the optimal fitting model: a parallel slopes model with pollution exposure, income group and number of doctors predicting the average mortality rate of a country. 
+
+## Results 
+  Our model (AvgMortalityRate ~ PollutionExposure + IncomeGroup + DoctorRate) performs a statistical analysis on the 81 valid observations out of 217 from the dataset. In this sample, the income groups are not evenly distributed, because it comprises 44.4% of high income countries, 27.1% of upper middle income countries, 17.2% of lower middle income countries, and only 11.1% of low income countries. According to figure ___, the median `mean annual exposure to PM 2.5 pollution` is the highest in low income countries and the lowest in high income countries relative to each level. In contrast, the median number of doctors per 10,000 is the lowest for low income countries, and highest for high income countries. Our model sought to understand the effect of these variables on the average mortality rate of a country. 
+
+  The model shows that the predicted average mortality rates of a low income country, lower middle income country, and upper middle income country are, respectively, 83.29, 79.19 and 40.37 per 100,000 population higher than that of a high income country. Furthermore, for every one microgram per cubic meter increase in mean annual exposure to PM 2.5 pollution, the predicted average mortality rate of a country of any income group (given the parallel slopes model) increases by 0.26 person per 100,000, allowing for simultaneous changes in the number of doctors per 10,000. 
+
+  To get a clearer picture of differences in the predicted average mortality rate between each income group instead of in relation to high income countries, we performed two sets of contrasts: one that fixed the number of doctors per 10,000, and another that fixed the pollution exposure (Figure ___). For the contrasts that held the number of doctors per 10,000 constant, low income countries have higher exposure to pollution than upper and lower middle income countries (p < 0.05), and lower middle income countries have more pollution exposure than upper middle income countries. However, these results were not statistically significant (p> 0.05). In the case of contrasts that fixed the pollution exposure, the number of doctors per 10,000 were greater in low income countries than upper and lower middle income countries, and in lower middle income countries compared to upper middle income countries. Again, these results were also not statistically significant (p>0.05). 
+
+  Based on individual t-tests for our model, the aforementioned coefficients for the two explanatory variables: income group and number of doctors per 10,000, are statistically significant (p < 0.05). However, the coefficient of the third explanatory variable: pollution exposure, became statistically insignificant when each covariate was added in our additive model. We conducted a VIF test to potentially show that the adding the two other variables could have increased the uncertainty in the pollution exposure variable to render this coefficient statistically insignificant. However, this test does not display multicollinearity, since the VIF for all three explanatory variables are less than 5 (Figure ___). 
+
+  In our study, we are testing whether a country’s average mortality rate also depends on its income status and/or the number of doctors per 10,000 beyond the exposure to PM 2.5 pollution. The results of this model allow us to reject the null hypothesis. In other words, these two explanatory variables explain the variability in the average mortality rate of a country beyond the capacity of pollution exposure. In addition to results yielded from the t-tests mentioned above, the nested F-test between our chosen model (full model) and other (reduced) model yielded statistically significant F-statistics (p < 0.05) to permit the rejection of the null hypothesis. In other words, the inclusion of the number of doctors per 10,000 and income group improves the effectiveness of the model, and the slope of average mortality rate is dependent on these variables. Furthemore, the adjusted R^2 improves significantly in our chosen model (37.67%) compared to the simple regression between average mortality rate and pollution exposure (11.7%), or the additive multiple regression among average mortality rate, pollution exposure, and income group (30.26%). These results mean that our chosen model explains more variability in the outcome than the other models.
+
+## Discussion
+  Our original research question focused on how a country's industrialization, operationalized as pollution levels, income status, and availability of doctors, predicted its mortality rate due to pollution. We hypothesized that while countries with higher pollution levels would have higher death rates due to pollution, that their income and availability of doctors would mitigate this effect. 
+  
+  While our analysis showed that our explanatory variables are mostly statistically significant in predicting mortality rates due to pollution, the nature of the effects was contrary to our original hypothesis. Overall, our chosen additive model was generally supported by model comparison tests like the nested F-test and measures of fit, such as omnibus F tests and R2 values, however the R2 value was moderate and thus not strongly convincing of the model’s explanatory power. The simple effects between variables replicated prior research findings, both in statistical significance and direction. Prominently, our analysis confirmed that income status of a country is a significant predictor of mortality rate due to pollution, which we confirmed with contrasts (all significant apart from the difference between low income and low middle income).  However, once creating more complex multiple regression models, air pollution exposure lost its significance, and the relationship between rate of doctors and mortality rate became positive but remained statistically significant, suggesting that pollution was no longer a significant predictor and that higher rates of doctors predicted higher mortality rates. We rationalize this change in significance and directionality in a few ways. Because mortality rate due to pollution is calculated using annual air pollution levels, we continue to assert that the correlation between the two variables is important despite its loss of statistical significance. Although analysis revealed that multicollinearity was not evident in our model, which could have explained this change, we remain confident in the underlying relationship between these two variables. As for the change in directionality between the rate of doctors and environmental mortality rates, perhaps the relationship had the reverse causality than we hypothesized. In other words, it is possible that a higher environmental mortality rate leads to the presence of more doctors, rather than more doctors increasing environmental mortality rates.
+
+## Limitations and Future Directions
+  Model and data limitations may account for our results not supporting our hypothesis, thus improvements on our methods could aid in creating a more accurate model. 
+  
+  Our model generally passed all regression assumptions, however, the discrepancies present are a limitation to the validity of our findings. Our model passed the linearity assumption, however there appears to be a slight non-linear pattern. While not significant enough to reject a linear model, future analysis may benefit from either polynomial or logarithmic transformations. The potential benefit of transformation is compounded by the slight right skew present in the normality of residuals plot. The equal variance assumption was met, and thus not an issue to our model. Lastly, our model appears to pass the independence assumption as each observation is a distinct county at one period of time, rather than repeated measurements over time. Overall, our model passed regression assumptions, however, exploring polynomial or logarithmic transformations could be beneficial in future studies. 
+  
+  There are also limitations with our data itself due both to how we operationalized the concept of industrialization, as well as reliability of the data collected. Industrialization is complex and difficult to reduce to readily accessible variables. Our project in part aimed to better understand the relationship between factors of industrialization. For example, we were curious about access to healthcare and its relationship with industrialization. We chose to look at the rate of doctors as we had access to this data for numerous countries, and it allowed us to adjust for population size. However, access to healthcare is not determined solely on the rate of doctors, therefore, our model does not capture the full complexity of the issue. Other metrics such as proximity to doctors, availability of specialists, and affordability of health care may capture the issue of accessibility more, and thus would provide a more reliable model. This issue of simplification of complex ideas is present in most of our variables. We used annual exposure to air pollution to determine the effects on individuals' health, however, other forms of pollution also exist, including in water and soil. As the levels of other forms of pollution may vary from country to country, it is possible that only measuring air pollution creates an inaccurate representation of pollution’s health effects. Further research on the ideal way to operationalize complex ideas like industrialization and subsequent adjustments to the explanatory variables chosen may improve the fit of the model and potentially change the results to align with our original hypothesis. 
+  
+  It is also possible to consider that the data itself is not reliable. The global nature of these measures mean that data collection processes and the resources allocated to them are not consistent across all countries. For example, lower income countries may not have the same infrastructure to collect and report on specific data such as the rate of doctors, and thus our analysis is not using accurate data. In addition, the self-report nature of some of the variables introduced more uncertainty, as countries may be compelled to put forth favoring statistics. A further limitation is that data collection from different variables does not happen on the same time schedule. To have enough data to analyze, we were required to use data from 2019, rather than the most recent year. However, the most recently available pollution exposure data was from 2017, leading us to use data from two different years. We suspect that the inconsistency in year would not cause enough disruption to change the overall patterns in our data, however, it is also possible that it would make a noticeable difference in our results.
+  
+  Based on the limitations of our data and the resulting model, we caution readers from generalizing from our findings. While the patterns may indeed accurately reflect the variables contributing to industrialization, it is also highly possible that with differently operationalized variables, more reliable data collection, and model transformations, that the results would be different. Instead, we frame this analysis as evidence that future study is needed to adequately comprehend the complexities of industrialization’s many factors.
+
+## References
+
+1. *Exposure to air pollution with fine particulate matter.* (n.d.). Our World in Data. Retrieved December 18, 2022, from <https://ourworldindata.org/grapher/PM25-air-pollution>
+
+2. *Global Health Estimates.* (n.d.). Retrieved December 18, 2022, from <https://www.who.int/data/global-health-estimates>
+
+3. *How does the World Bank classify countries? – World Bank Data Help Desk.* (n.d.). Retrieved December 18, 2022, from <https://datahelpdesk.worldbank.org/knowledgebase/articles/378834-how-does-the-world-bank-classify-countries>
+
+4. *Medical doctors (per 10 000 population).* (n.d.). Retrieved December 18, 2022, from <https://www.who.int/data/gho/data/indicators/indicator-details/GHO/medical-doctors-(per-10-000-population)>
+
+5. *New World Bank country classifications by income level: 2021-2022.* (n.d.). Retrieved December 18, 2022, from <https://blogs.worldbank.org/opendata/new-world-bank-country-classifications-income-level-2021-2022>
+
+6. *World Population Prospects—Population Division—United Nations.* (n.d.). Retrieved December 18, 2022, from <https://population.un.org/wpp/>
+
+# Data Appendix
+
+All our statistics are significant at the 0.05 level. 
+
+### LINE assumptions
+
+#### Linearity Check 
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+linearity_check <- check_model(model_final, check="linearity",
+                              panel=FALSE)
+
+plot(linearity_check, data= model_final)
+```
+
+#### Normality Check 
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+normality_check <- check_model(model_final, check="qq",
+                              panel=FALSE)
+
+plot(normality_check, data=model_final)
+```
+
+#### Variance Check 
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+variance_check <- check_model(model_final, check="homogeneity",
+                              panel=FALSE)
+
+plot(variance_check, data=model_final)
+```
+
+**Linearity** The relationship between the outcome and predictors are not perfectly linear but not sufficiently non-linear to fail the linearity check. 
+
+**Independence of observations** Since our data describes individual countries at a singular point in time rather than one country over a period of time, there is very little likelihood that one observation would overlap with or influence another. Therefore, we have reason to believe that this condition is not violated.
+
+**Normality** This condition is largely met, except for the slight right skew in the error distribution. 
+
+**Homogeneity of Variance** The variance of the outcome variable does not appear to drastically change as the explanatory variables change. In other words, the spread of the residuals appear relatively random and even. Therefore, this condition is not violated. 
+
+### Regression table
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+summary(model_final)
+```
+
+### Contrast 1: Fixing number of doctors per 10,000
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+
+data_2 <- summarize(data_final, avg_pollExp = mean(PollutionExposure), std_dev = sd(PollutionExposure))
+
+kable(data_2, caption = "Descriptive Statistics of Pollution Exposure")
+
+contrast1_grid <- emmeans(model_final, 
+                         specs = ~  PollutionExposure + IncomeGroup + DoctorRate, 
+                         at = list(PollutionExposure = c(26.04 - 20.75, 26.04, 26.04 + 20.75)))
+
+data_3 <- contrast(contrast1_grid, method = "pairwise", by="PollutionExposure")
+
+kable(data_3, caption = "Contrasts by Pollution Exposure")
+```
+
+### Contrast 2: Fixing exposure to pollution
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+data_4 <- summarize(data_final, avg_pollExp = mean(DoctorRate), std_dev = sd(DoctorRate))
+
+kable(data_4, caption = "Descriptive Statistics of Doctor Rate")
+
+contrast2_grid <- emmeans(model_final, 
+                         specs = ~  PollutionExposure + IncomeGroup + DoctorRate, 
+                         at = list(DoctorRate = c(24.82 - 17.67, 24.82, 24.82 + 17.67)))
+
+data_5 <- contrast(contrast2_grid, method = "pairwise", by="DoctorRate")
+
+kable(data_5, caption = "Contrasts by Doctor Rate")
+
+```
+
+### Testing VIF
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+kable(vif (model_final), caption = "VIF table")
+```
+
+### Nested F-tests
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+mort_pol <- lm (AvgMortalityRate ~ PollutionExposure, data = data_final)
+
+kable(anova (mort_pol, model_final), caption = "ANOVA: AvgMortalityRate ~ PollutionExposure")
+```
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+mort_pol_doc <- lm (AvgMortalityRate ~ PollutionExposure + DoctorRate, data = data_final)
+
+kable(anova (mort_pol_doc, model_final), caption = "ANOVA: AvgMortalityRate ~ PollutionExposure + DoctorRate")
+```
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+mort_pol_inc<- lm (AvgMortalityRate ~ PollutionExposure + IncomeGroup, data = data_final)
+
+kable(anova (mort_pol_inc, model_final), caption = "ANOVA: AvgMortalityRate ~ PollutionExposure + IncomeGroup")
+```
+
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+model_final_int <- lm (AvgMortalityRate ~ PollutionExposure * IncomeGroup * DoctorRate , data = data_final)
+
+kable(anova (model_final, model_final_int), caption = "ANOVA: AvgMortalityRate ~ PollutionExposure * IncomeGroup * DoctorRate")
+```
+
+### Informative and Exploratory Graphs 
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+ggplot (data_final, aes (x=IncomeGroup, y = PollutionExposure))+
+  geom_boxplot()+
+  theme_bw()+
+  labs (title= "Boxplot Summary Data",
+        y = "Mean Annual Exposure to PM 2.5 Pollution",
+        x = "Income Group")
+```
+
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+ggplot (data_final, aes (x = DoctorRate))+
+  geom_histogram(color = "white", binwidth = 3)+
+  facet_wrap(~IncomeGroup)+
+  theme_bw()+
+  labs (title = "Faceted Histogram: Summary Data", 
+        x = "Number of Doctors (per 10,000)")
+```
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+
+ggplot (data_final, aes (x=DoctorRate, 
+                         y = PollutionExposure, 
+                         color = IncomeGroup))+
+  geom_point()+
+  geom_smooth (method= lm, se = FALSE, formula = y~x)+
+  theme_bw()+
+  labs (y = "Mean Annual Exposure to PM 2.5 Pollution",
+        x = "Number of Doctors (per 10,000)",
+        color = "Income Group")
+```
