@@ -63,24 +63,25 @@ summary (mortality_pollution_model)
 #### 1.3.1) Linearity - Bad 
 
 ```{r}
-linearity_check_1 <- check_model(mortality_pollution_model, check="linearity",
+linearity_check_1 <- check_model(mort_pol_inc_doc_pll, check="linearity",
                               panel=FALSE)
 
-plot(linearity_check_1, data= mortality_pollution_model)
+plot(linearity_check_1, data= mort_pol_inc_doc_pll)
 ```
 #### 1.3.2) Variance - Good
 ```{r}
-variance_check_1 <- check_model(mortality_pollution_model, check="homogeneity",
+variance_check_1 <- check_model(mort_pol_inc_doc_pll, check="homogeneity",
                               panel=FALSE)
 
-plot(variance_check_1, data=mortality_pollution_model)
+plot(variance_check_1, data=mort_pol_inc_doc_pll)
+  
 ```
 #### 1.3.3) Normality - skewed 
 ```{r}
-normality_check_1 <- check_model(mortality_pollution_model, check="qq",
+normality_check_1 <- check_model(mort_pol_inc_doc_pll, check="qq",
                               panel=FALSE)
 
-plot(normality_check_1, data=mortality_pollution_model)
+plot(normality_check_1, data=mort_pol_inc_doc_pll)
 ```
 
 #### 1.3.4) Independence - Good
@@ -267,6 +268,11 @@ vif (mort_pol_inc_doc_pll)
 
 ## 6) Informative Stats
 
+```{r}
+env_mortality_data %>% 
+  skim()
+```
+
 
 ### 6.1) Income Distribution 
 
@@ -310,9 +316,10 @@ ggplot (env_mortality_data, aes (x=IncomeGroup, y = DoctorRate))+
 ### 6.4) Doc vs. Poll by incomegroup
 
 ```{r}
-ggplot (env_mortality_data, aes (x=DoctorRate, y = PollutionExposure))+
+ggplot (env_mortality_data, aes (x=DoctorRate, 
+                                 y = PollutionExposure, 
+                                 color = IncomeGroup))+
   geom_point()+
-  facet_wrap (~IncomeGroup)+
   geom_smooth (method= lm, se = FALSE, formula = y~x)+
   theme_bw()
 ```
@@ -331,19 +338,30 @@ mort_by_inc
 ```{r}
 contrast(mort_by_inc, method = "consec")
 ```
+### 7.2) Fixing Doc Rate 
+
 ```{r}
 summarize(env_mortality_data, avg_pollExp = mean(PollutionExposure), std_dev = sd(PollutionExposure))
-```
 
-```{r}
 inc_poll_grid <- emmeans(mort_pol_inc_doc_pll, 
                          specs = ~  PollutionExposure + IncomeGroup + DoctorRate, 
-                         at = list(PollutionExposure = c(26.04 - 20.75, 26.04489, 26.04 + 20.75)))
+                         at = list(PollutionExposure = c(26.04 - 20.75, 26.04, 26.04 + 20.75)))
 
-inc_poll_grid
-```
-```{r}
 contrast(inc_poll_grid, method = "pairwise", by="PollutionExposure")
+
+```
+### 7.3) Fixing Pollution exposure 
+
+```{r}
+
+summarize(env_mortality_data, avg_pollExp = mean(DoctorRate), std_dev = sd(DoctorRate))
+
+inc_doc_grid <- emmeans(mort_pol_inc_doc_pll, 
+                         specs = ~  PollutionExposure + IncomeGroup + DoctorRate, 
+                         at = list(DoctorRate = c(24.82 - 17.67, 24.82, 24.82 + 17.67)))
+
+contrast(inc_doc_grid, method = "pairwise", by="DoctorRate")
+
 ```
 
 
