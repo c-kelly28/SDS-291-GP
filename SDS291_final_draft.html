@@ -61,8 +61,7 @@ ul.task-list{list-style: none;}
   <li><a href="#variance-check" id="toc-variance-check" class="nav-link" data-scroll-target="#variance-check">Variance Check</a></li>
   </ul></li>
   <li><a href="#regression-table" id="toc-regression-table" class="nav-link" data-scroll-target="#regression-table">Regression table</a></li>
-  <li><a href="#contrast-1-fixing-number-of-doctors-per-10000" id="toc-contrast-1-fixing-number-of-doctors-per-10000" class="nav-link" data-scroll-target="#contrast-1-fixing-number-of-doctors-per-10000">Contrast 1: Fixing number of doctors per 10,000</a></li>
-  <li><a href="#contrast-2-fixing-exposure-to-pollution" id="toc-contrast-2-fixing-exposure-to-pollution" class="nav-link" data-scroll-target="#contrast-2-fixing-exposure-to-pollution">Contrast 2: Fixing exposure to pollution</a></li>
+  <li><a href="#contrast" id="toc-contrast" class="nav-link" data-scroll-target="#contrast">Contrast</a></li>
   <li><a href="#testing-vif" id="toc-testing-vif" class="nav-link" data-scroll-target="#testing-vif">Testing VIF</a></li>
   <li><a href="#nested-f-tests" id="toc-nested-f-tests" class="nav-link" data-scroll-target="#nested-f-tests">Nested F-tests</a></li>
   <li><a href="#informative-and-exploratory-graphs" id="toc-informative-and-exploratory-graphs" class="nav-link" data-scroll-target="#informative-and-exploratory-graphs">Informative and Exploratory Graphs</a></li>
@@ -125,10 +124,10 @@ ul.task-list{list-style: none;}
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
-<p>Our model (AvgMortalityRate ~ PollutionExposure + IncomeGroup + DoctorRate) performs a statistical analysis on the 81 valid observations out of 217 from the dataset. In this sample, the income groups are not evenly distributed, because it comprises 44.4% of high income countries, 27.1% of upper middle income countries, 17.2% of lower middle income countries, and only 11.1% of low income countries. According to figure ___, the median <code>mean annual exposure to PM 2.5 pollution</code> is the highest in low income countries and the lowest in high income countries relative to each level. In contrast, the median number of doctors per 10,000 is the lowest for low income countries, and highest for high income countries. Our model sought to understand the effect of these variables on the average mortality rate of a country.</p>
+<p>Our model (AvgMortalityRate ~ PollutionExposure + IncomeGroup + DoctorRate) performs a statistical analysis on the 81 valid observations out of 217 from the dataset. In this sample, the income groups are not evenly distributed, because it comprises 44.4% of high income countries, 27.1% of upper middle income countries, 17.2% of lower middle income countries, and only 11.1% of low income countries. The median mean annual exposure to PM 2.5 pollution is the highest in low income countries and the lowest in high income countries relative to each level. In contrast, the median number of doctors per 10,000 is the lowest for low income countries, and highest for high income countries. Our model sought to understand the effect of these variables on the average mortality rate of a country.</p>
 <p>The model shows that the predicted average mortality rates of a low income country, lower middle income country, and upper middle income country are, respectively, 83.29, 79.19 and 40.37 per 100,000 population higher than that of a high income country. Furthermore, for every one microgram per cubic meter increase in mean annual exposure to PM 2.5 pollution, the predicted average mortality rate of a country of any income group (given the parallel slopes model) increases by 0.26 person per 100,000, allowing for simultaneous changes in the number of doctors per 10,000.</p>
-<p>To get a clearer picture of differences in the predicted average mortality rate between each income group instead of in relation to high income countries, we performed two sets of contrasts: one that fixed the number of doctors per 10,000, and another that fixed the pollution exposure (Figure ___). For the contrasts that held the number of doctors per 10,000 constant, low income countries have higher exposure to pollution than upper and lower middle income countries (p &lt; 0.05), and lower middle income countries have more pollution exposure than upper middle income countries. However, these results were not statistically significant (p&gt; 0.05). In the case of contrasts that fixed the pollution exposure, the number of doctors per 10,000 were greater in low income countries than upper and lower middle income countries, and in lower middle income countries compared to upper middle income countries. Again, these results were also not statistically significant (p&gt;0.05).</p>
-<p>Based on individual t-tests for our model, the aforementioned coefficients for the two explanatory variables: income group and number of doctors per 10,000, are statistically significant (p &lt; 0.05). However, the coefficient of the third explanatory variable: pollution exposure, became statistically insignificant when each covariate was added in our additive model. We conducted a VIF test to potentially show that the adding the two other variables could have increased the uncertainty in the pollution exposure variable to render this coefficient statistically insignificant. However, this test does not display multicollinearity, since the VIF for all three explanatory variables are less than 5 (Figure ___).</p>
+<p>To get a clearer picture of differences in the predicted average mortality rate between each income group instead of in relation to high income countries, we performed a contrasts that fixed the number of doctors per 10,000. Low income countries have higher exposure to pollution than upper and lower middle income countries (p &lt; 0.05), and lower middle income countries have more pollution exposure than upper middle income countries; however, these results were not statistically significant (p&gt; 0.05). Since our model is a parallel slopes model, fixing the pollution exposure would yield the same results as fixing the number of doctors per 10,000 for the relationship between the average mortality rate and income group of a country.</p>
+<p>Based on individual t-tests for our model, the aforementioned coefficients for the two explanatory variables: income group and number of doctors per 10,000, are statistically significant (p &lt; 0.05). However, the coefficient of the third explanatory variable: pollution exposure, became statistically insignificant when each covariate was added in our additive model. We conducted a VIF test to potentially show that the adding the two other variables could have increased the uncertainty in the pollution exposure variable to render this coefficient statistically insignificant. However, this test does not display multicollinearity, since the VIF for all three explanatory variables are less than 5.</p>
 <p>In our study, we are testing whether a country’s average mortality rate also depends on its income status and/or the number of doctors per 10,000 beyond the exposure to PM 2.5 pollution. The results of this model allow us to reject the null hypothesis. In other words, these two explanatory variables explain the variability in the average mortality rate of a country beyond the capacity of pollution exposure. In addition to results yielded from the t-tests mentioned above, the nested F-test between our chosen model (full model) and other (reduced) model yielded statistically significant F-statistics (p &lt; 0.05) to permit the rejection of the null hypothesis. In other words, the inclusion of the number of doctors per 10,000 and income group improves the effectiveness of the model, and the slope of average mortality rate is dependent on these variables. Furthemore, the adjusted R^2 improves significantly in our chosen model (37.67%) compared to the simple regression between average mortality rate and pollution exposure (11.7%), or the additive multiple regression among average mortality rate, pollution exposure, and income group (30.26%). These results mean that our chosen model explains more variability in the outcome than the other models.</p>
 </section>
 <section id="discussion" class="level2">
@@ -156,7 +155,7 @@ ul.task-list{list-style: none;}
 <pre><code>$NCV</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="SDS291_final_draft_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="SDS291_final_draft_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -167,7 +166,7 @@ ul.task-list{list-style: none;}
 <pre><code>$QQ</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="SDS291_final_draft_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="SDS291_final_draft_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -178,7 +177,7 @@ ul.task-list{list-style: none;}
 <pre><code>$HOMOGENEITY</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="SDS291_final_draft_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<p><img src="SDS291_final_draft_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p><strong>Linearity</strong> The relationship between the outcome and predictors are not perfectly linear but not sufficiently non-linear to fail the linearity check.</p>
@@ -217,8 +216,8 @@ F-statistic: 10.92 on 5 and 75 DF,  p-value: 6.483e-08</code></pre>
 </div>
 </div>
 </section>
-<section id="contrast-1-fixing-number-of-doctors-per-10000" class="level3">
-<h3 class="anchored" data-anchor-id="contrast-1-fixing-number-of-doctors-per-10000">Contrast 1: Fixing number of doctors per 10,000</h3>
+<section id="contrast" class="level3">
+<h3 class="anchored" data-anchor-id="contrast">Contrast</h3>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
@@ -428,217 +427,6 @@ F-statistic: 10.92 on 5 and 75 DF,  p-value: 6.483e-08</code></pre>
 </div>
 </div>
 </section>
-<section id="contrast-2-fixing-exposure-to-pollution" class="level3">
-<h3 class="anchored" data-anchor-id="contrast-2-fixing-exposure-to-pollution">Contrast 2: Fixing exposure to pollution</h3>
-<div class="cell">
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<caption>Descriptive Statistics of Doctor Rate</caption>
-<thead>
-<tr class="header">
-<th style="text-align: right;">avg_pollExp</th>
-<th style="text-align: right;">std_dev</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">24.81704</td>
-<td style="text-align: right;">17.67225</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<caption>Contrasts by Doctor Rate</caption>
-<colgroup>
-<col style="width: 66%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 1%">
-<col style="width: 6%">
-<col style="width: 6%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">contrast</th>
-<th style="text-align: right;">DoctorRate</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">SE</th>
-<th style="text-align: right;">df</th>
-<th style="text-align: right;">t.ratio</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">PollutionExposure26.0448895324895 High income - PollutionExposure26.0448895324895 Low income</td>
-<td style="text-align: right;">7.15</td>
-<td style="text-align: right;">-83.292241</td>
-<td style="text-align: right;">16.898047</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">-4.929105</td>
-<td style="text-align: right;">0.0000282</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PollutionExposure26.0448895324895 High income - PollutionExposure26.0448895324895 Lower middle income</td>
-<td style="text-align: right;">7.15</td>
-<td style="text-align: right;">-79.190794</td>
-<td style="text-align: right;">14.493970</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">-5.463706</td>
-<td style="text-align: right;">0.0000034</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PollutionExposure26.0448895324895 High income - PollutionExposure26.0448895324895 Upper middle income</td>
-<td style="text-align: right;">7.15</td>
-<td style="text-align: right;">-40.371625</td>
-<td style="text-align: right;">8.847303</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">-4.563156</td>
-<td style="text-align: right;">0.0001120</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PollutionExposure26.0448895324895 Low income - PollutionExposure26.0448895324895 Lower middle income</td>
-<td style="text-align: right;">7.15</td>
-<td style="text-align: right;">4.101446</td>
-<td style="text-align: right;">13.007128</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">0.315323</td>
-<td style="text-align: right;">0.9890575</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PollutionExposure26.0448895324895 Low income - PollutionExposure26.0448895324895 Upper middle income</td>
-<td style="text-align: right;">7.15</td>
-<td style="text-align: right;">42.920615</td>
-<td style="text-align: right;">15.187860</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">2.825982</td>
-<td style="text-align: right;">0.0301093</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PollutionExposure26.0448895324895 Lower middle income - PollutionExposure26.0448895324895 Upper middle income</td>
-<td style="text-align: right;">7.15</td>
-<td style="text-align: right;">38.819169</td>
-<td style="text-align: right;">12.843748</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">3.022417</td>
-<td style="text-align: right;">0.0176614</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PollutionExposure26.0448895324895 High income - PollutionExposure26.0448895324895 Low income</td>
-<td style="text-align: right;">24.82</td>
-<td style="text-align: right;">-83.292241</td>
-<td style="text-align: right;">16.898047</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">-4.929105</td>
-<td style="text-align: right;">0.0000282</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PollutionExposure26.0448895324895 High income - PollutionExposure26.0448895324895 Lower middle income</td>
-<td style="text-align: right;">24.82</td>
-<td style="text-align: right;">-79.190794</td>
-<td style="text-align: right;">14.493970</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">-5.463706</td>
-<td style="text-align: right;">0.0000034</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PollutionExposure26.0448895324895 High income - PollutionExposure26.0448895324895 Upper middle income</td>
-<td style="text-align: right;">24.82</td>
-<td style="text-align: right;">-40.371625</td>
-<td style="text-align: right;">8.847303</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">-4.563156</td>
-<td style="text-align: right;">0.0001120</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PollutionExposure26.0448895324895 Low income - PollutionExposure26.0448895324895 Lower middle income</td>
-<td style="text-align: right;">24.82</td>
-<td style="text-align: right;">4.101446</td>
-<td style="text-align: right;">13.007128</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">0.315323</td>
-<td style="text-align: right;">0.9890575</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PollutionExposure26.0448895324895 Low income - PollutionExposure26.0448895324895 Upper middle income</td>
-<td style="text-align: right;">24.82</td>
-<td style="text-align: right;">42.920615</td>
-<td style="text-align: right;">15.187860</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">2.825982</td>
-<td style="text-align: right;">0.0301093</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PollutionExposure26.0448895324895 Lower middle income - PollutionExposure26.0448895324895 Upper middle income</td>
-<td style="text-align: right;">24.82</td>
-<td style="text-align: right;">38.819169</td>
-<td style="text-align: right;">12.843748</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">3.022417</td>
-<td style="text-align: right;">0.0176614</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PollutionExposure26.0448895324895 High income - PollutionExposure26.0448895324895 Low income</td>
-<td style="text-align: right;">42.49</td>
-<td style="text-align: right;">-83.292241</td>
-<td style="text-align: right;">16.898047</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">-4.929105</td>
-<td style="text-align: right;">0.0000282</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PollutionExposure26.0448895324895 High income - PollutionExposure26.0448895324895 Lower middle income</td>
-<td style="text-align: right;">42.49</td>
-<td style="text-align: right;">-79.190794</td>
-<td style="text-align: right;">14.493970</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">-5.463706</td>
-<td style="text-align: right;">0.0000034</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PollutionExposure26.0448895324895 High income - PollutionExposure26.0448895324895 Upper middle income</td>
-<td style="text-align: right;">42.49</td>
-<td style="text-align: right;">-40.371625</td>
-<td style="text-align: right;">8.847303</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">-4.563156</td>
-<td style="text-align: right;">0.0001120</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PollutionExposure26.0448895324895 Low income - PollutionExposure26.0448895324895 Lower middle income</td>
-<td style="text-align: right;">42.49</td>
-<td style="text-align: right;">4.101446</td>
-<td style="text-align: right;">13.007128</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">0.315323</td>
-<td style="text-align: right;">0.9890575</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PollutionExposure26.0448895324895 Low income - PollutionExposure26.0448895324895 Upper middle income</td>
-<td style="text-align: right;">42.49</td>
-<td style="text-align: right;">42.920615</td>
-<td style="text-align: right;">15.187860</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">2.825982</td>
-<td style="text-align: right;">0.0301093</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PollutionExposure26.0448895324895 Lower middle income - PollutionExposure26.0448895324895 Upper middle income</td>
-<td style="text-align: right;">42.49</td>
-<td style="text-align: right;">38.819169</td>
-<td style="text-align: right;">12.843748</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">3.022417</td>
-<td style="text-align: right;">0.0176614</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
 <section id="testing-vif" class="level3">
 <h3 class="anchored" data-anchor-id="testing-vif">Testing VIF</h3>
 <div class="cell">
@@ -824,17 +612,17 @@ F-statistic: 10.92 on 5 and 75 DF,  p-value: 6.483e-08</code></pre>
 <h3 class="anchored" data-anchor-id="informative-and-exploratory-graphs">Informative and Exploratory Graphs</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="SDS291_final_draft_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+<p><img src="SDS291_final_draft_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="SDS291_final_draft_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+<p><img src="SDS291_final_draft_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="SDS291_final_draft_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+<p><img src="SDS291_final_draft_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
