@@ -78,6 +78,7 @@ contrast1_grid <- emmeans(model_final,
 
 contrast(contrast1_grid, method = "pairwise", by="PollutionExposure")
 ```
+
 ### Contrast 2: Fixing exposure to pollution
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
@@ -90,24 +91,70 @@ contrast2_grid <- emmeans(model_final,
 contrast(contrast2_grid, method = "pairwise", by="DoctorRate")
 ```
 
+### Testing VIF
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
+vif (model_final)
+```
+
+### Nested F-tests
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+mort_pol <- lm (AvgMortalityRate ~ PollutionExposure, data = data_final)
+
+anova (mort_pol, model_final)
+```
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+mort_pol_doc <- lm (AvgMortalityRate ~ PollutionExposure + DoctorRate , data = data_final)
+
+anova (mort_pol_doc, model_final)
 ```
 
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
+mort_pol_inc<- lm (AvgMortalityRate ~ PollutionExposure + IncomeGroup , data = data_final)
+
+anova (mort_pol_inc, model_final)
 ```
 
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
+model_final_int <- lm (AvgMortalityRate ~ PollutionExposure * IncomeGroup * DoctorRate , data = data_final)
+
+anova (model_final, model_final_int)
+```
+
+### Informative and Exploratory Graphs 
+
+
+```{r, message = FALSE, echo = FALSE, warning = FALSE}
+ggplot (data_final, aes (x=IncomeGroup, y = PollutionExposure))+
+  geom_boxplot()+
+  theme_bw()+
+  labs (y = "Mean Annual Exposure to PM 2.5 Pollution",
+        x = "Income Group")
 ```
 
 
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
+ggplot (data_final, aes (x = DoctorRate))+
+  geom_histogram(color = "white", binwidth = 3)+
+  facet_wrap(~IncomeGroup)+
+  theme_bw()+
+  labs (x = "Number of Doctors (per 10,000)")
 ```
 
-
 ```{r, message = FALSE, echo = FALSE, warning = FALSE}
+ggplot (data_final, aes (x=DoctorRate, 
+                         y = PollutionExposure, 
+                         color = IncomeGroup))+
+  geom_point()+
+  geom_smooth (method= lm, se = FALSE, formula = y~x)+
+  theme_bw()+
+  labs (y = "Mean Annual Exposure to PM 2.5 Pollution",
+        x = "Number of Doctors (per 10,000)",
+        color = "Income Group")
 ```
 
 
